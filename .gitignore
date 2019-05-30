@@ -1,0 +1,6 @@
+/build/
+/debug/
+/dist/
+/nbproject/
+/Proteus/*
+!/Proteus/LunOS-Simulation.pdsprj
