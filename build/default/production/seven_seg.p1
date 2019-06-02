@@ -1,10 +1,10 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"1477 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 1477: extern volatile unsigned char TRISA __attribute__((address(0xF92)));
-[v _TRISA `Vuc ~T0 @X0 0 e@3986 ]
-"52
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 52: extern volatile unsigned char PORTA __attribute__((address(0xF80)));
-[v _PORTA `Vuc ~T0 @X0 0 e@3968 ]
+"1921 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 1921: extern volatile unsigned char TRISC __attribute__((address(0xF94)));
+[v _TRISC `Vuc ~T0 @X0 0 e@3988 ]
+"450
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 450: extern volatile unsigned char PORTC __attribute__((address(0xF82)));
+[v _PORTC `Vuc ~T0 @X0 0 e@3970 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 54: __asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
@@ -426,11 +426,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _seven_seg_init ]
 [f ]
 "11
-[; ;seven_seg.c: 11:     TRISA = 0b11000000;
-[e = _TRISA -> -> 192 `i `uc ]
+[; ;seven_seg.c: 11:     TRISC = 0b11000000;
+[e = _TRISC -> -> 192 `i `uc ]
 "12
-[; ;seven_seg.c: 12:     PORTA = 0b00000000;
-[e = _PORTA -> -> 0 `i `uc ]
+[; ;seven_seg.c: 12:     PORTC = 0b00000000;
+[e = _PORTC -> -> 0 `i `uc ]
 "13
 [; ;seven_seg.c: 13: }
 [e :UE 281 ]
@@ -447,31 +447,31 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;seven_seg.c: 17:     if(display == 1) {
 [e $ ! == _display -> 1 `i 283  ]
 {
-"18
-[; ;seven_seg.c: 18:         PORTA = PORTA & 0b11111000;
-[e = _PORTA -> & -> _PORTA `i -> 248 `i `uc ]
-"19
-[; ;seven_seg.c: 19:         PORTA = PORTA | number;
-[e = _PORTA -> | -> _PORTA `i _number `uc ]
 "20
-[; ;seven_seg.c: 20:     } else if (display == 2) {
+[; ;seven_seg.c: 20:         PORTC = PORTC & 0b11111000;
+[e = _PORTC -> & -> _PORTC `i -> 248 `i `uc ]
+"24
+[; ;seven_seg.c: 24:         PORTC = PORTC | number;
+[e = _PORTC -> | -> _PORTC `i _number `uc ]
+"25
+[; ;seven_seg.c: 25:     } else if (display == 2) {
 }
 [e $U 284  ]
 [e :U 283 ]
 [e $ ! == _display -> 2 `i 285  ]
 {
-"21
-[; ;seven_seg.c: 21:         PORTA = PORTA & 0b11000111;
-[e = _PORTA -> & -> _PORTA `i -> 199 `i `uc ]
-"22
-[; ;seven_seg.c: 22:         PORTA = PORTA | number << 3;
-[e = _PORTA -> | -> _PORTA `i << _number -> 3 `i `uc ]
-"23
-[; ;seven_seg.c: 23:     }
+"26
+[; ;seven_seg.c: 26:         PORTC = PORTC & 0b11000111;
+[e = _PORTC -> & -> _PORTC `i -> 199 `i `uc ]
+"27
+[; ;seven_seg.c: 27:         PORTC = PORTC | number << 3;
+[e = _PORTC -> | -> _PORTC `i << _number -> 3 `i `uc ]
+"28
+[; ;seven_seg.c: 28:     }
 }
 [e :U 285 ]
 [e :U 284 ]
-"24
-[; ;seven_seg.c: 24: }
+"29
+[; ;seven_seg.c: 29: }
 [e :UE 282 ]
 }

@@ -4532,6 +4532,7 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 
 
 void config_INT0();
+void config_INT1();
 void config_timer0();
 void __attribute__((picinterrupt(("")))) ISR_Int0(void);
 void __attribute__((picinterrupt(("")))) ISR_timer0();
@@ -4624,6 +4625,12 @@ void config_INT0() {
   INTCON2bits.INTEDG0 = 0;
 }
 
+void config_INT1() {
+
+
+
+}
+
 void config_timer0() {
 
 
@@ -4636,7 +4643,7 @@ void config_timer0() {
   INTCONbits.TMR0IE = 1;
   TMR0L = 252;
 }
-# 56 "int0_test.c"
+# 64 "int0_test.c"
 void __attribute__((picinterrupt(("")))) ISR_timer0() {
   INTCONbits.GIE = 0;
 
@@ -4645,7 +4652,15 @@ void __attribute__((picinterrupt(("")))) ISR_timer0() {
     TMR0L = 252;
     PORTDbits.RD0 = ~PORTDbits.RD0;
     delay_decrement();
-# 73 "int0_test.c"
+
+    quantum--;
+    if (quantum <= 0) {
+      quantum = 10;
+      { who = ready_queue.task_running; ready_queue.tasks[who].task_state = READY; ready_queue.tasks[who].W_reg = WREG; ready_queue.tasks[who].STATUS_reg = STATUS; ready_queue.tasks[who].BSR_reg = BSR; size = 0; while (STKPTR) { ready_queue.tasks[who].task_stack.h_stack[size].TOSU_reg = TOSU; ready_queue.tasks[who].task_stack.h_stack[size].TOSH_reg = TOSH; ready_queue.tasks[who].task_stack.h_stack[size].TOSL_reg = TOSL; size++; __asm("POP"); } ready_queue.tasks[who].task_stack.stack_level = size;};
+      ready_queue.task_running = round_robin();
+      { STKPTR = 0; who = ready_queue.task_running; if (ready_queue.tasks[who].task_stack.stack_level == 0) { __asm("PUSH"); TOS = ready_queue.tasks[who].task_f; } else { ready_queue.tasks[who].task_state = RUNNING; WREG = ready_queue.tasks[who].W_reg; STATUS = ready_queue.tasks[who].STATUS_reg; BSR = ready_queue.tasks[who].BSR_reg; size = ready_queue.tasks[who].task_stack.stack_level; while (size) { __asm("PUSH"); TOSL = ready_queue.tasks[who].task_stack.h_stack[size-1].TOSL_reg; TOSH = ready_queue.tasks[who].task_stack.h_stack[size-1].TOSH_reg; TOSU = ready_queue.tasks[who].task_stack.h_stack[size-1].TOSU_reg; size--; } }};
+    }
+
   }
 
   INTCONbits.GIE = 1;

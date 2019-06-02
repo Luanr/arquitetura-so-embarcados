@@ -98,6 +98,57 @@ Version 4.0 HI-TECH Software Intermediate Code
 "75 ./kernel.h
 [; ;./kernel.h: 75: void delay_decrement();
 [v _delay_decrement `(v ~T0 @X0 0 e? ]
+"76 int0_test.c
+[; ;int0_test.c: 76:       { who = ready_queue.task_running; ready_queue.tasks[who].task_state = READY; ready_queue.tasks[who].W_reg = WREG; ready_queue.tasks[who].STATUS_reg = STATUS; ready_queue.tasks[who].BSR_reg = BSR; size = 0; while (STKPTR) { ready_queue.tasks[who].task_stack.h_stack[size].TOSU_reg = TOSU; ready_queue.tasks[who].task_stack.h_stack[size].TOSH_reg = TOSH; ready_queue.tasks[who].task_stack.h_stack[size].TOSL_reg = TOSL; size++; __asm("POP"); } ready_queue.tasks[who].task_stack.stack_level = size;};
+[c E2533 0 1 2 3 4 5 .. ]
+[n E2533 . READY RUNNING WAITING FINISHED WAITING_PIPE WAITING_SEM  ]
+"16 ./types.h
+[; ;./types.h: 16: typedef struct data_stack {
+[s S281 `uc 1 `uc 1 `uc 1 ]
+[n S281 data_stack TOSU_reg TOSL_reg TOSH_reg ]
+"22
+[; ;./types.h: 22: typedef struct stack {
+[s S282 `S281 -> 31 `i `i 1 ]
+[n S282 stack h_stack stack_level ]
+[v F2560 `(v ~T0 @X0 0 t? ]
+"28
+[; ;./types.h: 28: typedef struct pcb {
+[s S283 `ui 1 `ui 1 `uc 1 `uc 1 `uc 1 `uc 1 `E2533 1 `S282 1 `*F2560 1 `ui 1 ]
+[n S283 pcb task_id task_prior PC_reg W_reg STATUS_reg BSR_reg task_state task_stack task_f task_delay_time ]
+"41
+[; ;./types.h: 41: typedef struct r_queue {
+[s S284 `S283 -> 5 `i `ui 1 `i 1 ]
+[n S284 r_queue tasks tasks_installed task_running ]
+"10 int0_test.c
+[; ;int0_test.c: 10: extern t_r_queue ready_queue;
+[v _ready_queue `S284 ~T0 @X0 0 e ]
+"6462 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6462: extern volatile unsigned char WREG __attribute__((address(0xFE8)));
+[v _WREG `Vuc ~T0 @X0 0 e@4072 ]
+"6272
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6272: extern volatile unsigned char STATUS __attribute__((address(0xFD8)));
+[v _STATUS `Vuc ~T0 @X0 0 e@4056 ]
+"6399
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6399: extern volatile unsigned char BSR __attribute__((address(0xFE0)));
+[v _BSR `Vuc ~T0 @X0 0 e@4064 ]
+"6999
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6999: extern volatile unsigned char TOSU __attribute__((address(0xFFF)));
+[v _TOSU `Vuc ~T0 @X0 0 e@4095 ]
+"6992
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6992: extern volatile unsigned char TOSH __attribute__((address(0xFFE)));
+[v _TOSH `Vuc ~T0 @X0 0 e@4094 ]
+"6985
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6985: extern volatile unsigned char TOSL __attribute__((address(0xFFD)));
+[v _TOSL `Vuc ~T0 @X0 0 e@4093 ]
+"6904
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6904: extern volatile unsigned char STKPTR __attribute__((address(0xFFC)));
+[v _STKPTR `Vuc ~T0 @X0 0 e@4092 ]
+"73 ./kernel.h
+[; ;./kernel.h: 73: unsigned int round_robin();
+[v _round_robin `(ui ~T0 @X0 0 e? ]
+"6977 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6977: extern volatile __uint24 TOS __attribute__((address(0xFFD)));
+[v _TOS `Vum ~T0 @X0 0 e@4093 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 54: __asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
@@ -562,67 +613,150 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 285 ]
 }
 "23
-[; ;int0_test.c: 23: void config_timer0() {
+[; ;int0_test.c: 23: void config_INT1() {
+[v _config_INT1 `(v ~T0 @X0 1 ef ]
+{
+[e :U _config_INT1 ]
+[f ]
+"27
+[; ;int0_test.c: 27: }
+[e :UE 286 ]
+}
+"29
+[; ;int0_test.c: 29: void config_timer0() {
 [v _config_timer0 `(v ~T0 @X0 1 ef ]
 {
 [e :U _config_timer0 ]
 [f ]
-"28
-[; ;int0_test.c: 28:   T0CONbits.T0CS = 0;
-[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
-"29
-[; ;int0_test.c: 29:   T0CONbits.PSA = 0;
-[e = . . _T0CONbits 0 1 -> -> 0 `i `uc ]
-"30
-[; ;int0_test.c: 30:   T0CONbits.T0PS = 0b111;
-[e = . . _T0CONbits 0 0 -> -> 7 `i `uc ]
-"31
-[; ;int0_test.c: 31:   INTCONbits.PEIE = 1;
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-"32
-[; ;int0_test.c: 32:   INTCONbits.TMR0IE = 1;
-[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
-"33
-[; ;int0_test.c: 33:   TMR0L = 252;
-[e = _TMR0L -> -> 252 `i `uc ]
 "34
-[; ;int0_test.c: 34: }
-[e :UE 286 ]
+[; ;int0_test.c: 34:   T0CONbits.T0CS = 0;
+[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
+"35
+[; ;int0_test.c: 35:   T0CONbits.PSA = 0;
+[e = . . _T0CONbits 0 1 -> -> 0 `i `uc ]
+"36
+[; ;int0_test.c: 36:   T0CONbits.T0PS = 0b111;
+[e = . . _T0CONbits 0 0 -> -> 7 `i `uc ]
+"37
+[; ;int0_test.c: 37:   INTCONbits.PEIE = 1;
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+"38
+[; ;int0_test.c: 38:   INTCONbits.TMR0IE = 1;
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+"39
+[; ;int0_test.c: 39:   TMR0L = 252;
+[e = _TMR0L -> -> 252 `i `uc ]
+"40
+[; ;int0_test.c: 40: }
+[e :UE 287 ]
 }
 [v $root$_ISR_timer0 `(v ~T0 @X0 0 e ]
-"56
-[; ;int0_test.c: 56: void __attribute__((picinterrupt(("")))) ISR_timer0() {
+"64
+[; ;int0_test.c: 64: void __attribute__((picinterrupt(("")))) ISR_timer0() {
 [v _ISR_timer0 `(v ~T43 @X0 1 ef ]
 {
 [e :U _ISR_timer0 ]
 [f ]
-"57
-[; ;int0_test.c: 57:   INTCONbits.GIE = 0;
+"65
+[; ;int0_test.c: 65:   INTCONbits.GIE = 0;
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-"59
-[; ;int0_test.c: 59:   if (INTCONbits.TMR0IF) {
-[e $ ! != -> . . _INTCONbits 0 2 `i -> 0 `i 288  ]
+"67
+[; ;int0_test.c: 67:   if (INTCONbits.TMR0IF) {
+[e $ ! != -> . . _INTCONbits 0 2 `i -> 0 `i 289  ]
 {
-"60
-[; ;int0_test.c: 60:     INTCONbits.TMR0IF = 0;
+"68
+[; ;int0_test.c: 68:     INTCONbits.TMR0IF = 0;
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-"61
-[; ;int0_test.c: 61:     TMR0L = 252;
+"69
+[; ;int0_test.c: 69:     TMR0L = 252;
 [e = _TMR0L -> -> 252 `i `uc ]
-"62
-[; ;int0_test.c: 62:     PORTDbits.RD0 = ~PORTDbits.RD0;
+"70
+[; ;int0_test.c: 70:     PORTDbits.RD0 = ~PORTDbits.RD0;
 [e = . . _PORTDbits 0 0 -> ~ -> . . _PORTDbits 0 0 `i `uc ]
-"63
-[; ;int0_test.c: 63:     delay_decrement();
+"71
+[; ;int0_test.c: 71:     delay_decrement();
 [e ( _delay_decrement ..  ]
 "73
-[; ;int0_test.c: 73:   }
-}
-[e :U 288 ]
+[; ;int0_test.c: 73:     quantum--;
+[e -- _quantum -> 1 `i ]
+"74
+[; ;int0_test.c: 74:     if (quantum <= 0) {
+[e $ ! <= _quantum -> 0 `i 290  ]
+{
 "75
-[; ;int0_test.c: 75:   INTCONbits.GIE = 1;
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;int0_test.c: 75:       quantum = 10;
+[e = _quantum -> 10 `i ]
 "76
-[; ;int0_test.c: 76: }
-[e :UE 287 ]
+[; ;int0_test.c: 76:       { who = ready_queue.task_running; ready_queue.tasks[who].task_state = READY; ready_queue.tasks[who].W_reg = WREG; ready_queue.tasks[who].STATUS_reg = STATUS; ready_queue.tasks[who].BSR_reg = BSR; size = 0; while (STKPTR) { ready_queue.tasks[who].task_stack.h_stack[size].TOSU_reg = TOSU; ready_queue.tasks[who].task_stack.h_stack[size].TOSH_reg = TOSH; ready_queue.tasks[who].task_stack.h_stack[size].TOSL_reg = TOSL; size++; __asm("POP"); } ready_queue.tasks[who].task_stack.stack_level = size;};
+{
+[e = _who . _ready_queue 2 ]
+[e = . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 6 . `E2533 0 ]
+[e = . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 3 _WREG ]
+[e = . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 4 _STATUS ]
+[e = . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 5 _BSR ]
+[e = _size -> 0 `i ]
+[e $U 291  ]
+[e :U 292 ]
+{
+[e = . *U + &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 * -> -> _size `ui `ux -> -> # *U &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 `ui `ux 0 _TOSU ]
+[e = . *U + &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 * -> -> _size `ui `ux -> -> # *U &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 `ui `ux 2 _TOSH ]
+[e = . *U + &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 * -> -> _size `ui `ux -> -> # *U &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 `ui `ux 1 _TOSL ]
+[e ++ _size -> 1 `i ]
+[; <" POP ;# ">
+}
+[e :U 291 ]
+[e $ != -> _STKPTR `i -> 0 `i 292  ]
+[e :U 293 ]
+[e = . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 1 _size ]
+}
+"77
+[; ;int0_test.c: 77:       ready_queue.task_running = round_robin();
+[e = . _ready_queue 2 -> ( _round_robin ..  `i ]
+"78
+[; ;int0_test.c: 78:       { STKPTR = 0; who = ready_queue.task_running; if (ready_queue.tasks[who].task_stack.stack_level == 0) { __asm("PUSH"); TOS = ready_queue.tasks[who].task_f; } else { ready_queue.tasks[who].task_state = RUNNING; WREG = ready_queue.tasks[who].W_reg; STATUS = ready_queue.tasks[who].STATUS_reg; BSR = ready_queue.tasks[who].BSR_reg; size = ready_queue.tasks[who].task_stack.stack_level; while (size) { __asm("PUSH"); TOSL = ready_queue.tasks[who].task_stack.h_stack[size-1].TOSL_reg; TOSH = ready_queue.tasks[who].task_stack.h_stack[size-1].TOSH_reg; TOSU = ready_queue.tasks[who].task_stack.h_stack[size-1].TOSU_reg; size--; } }};
+{
+[e = _STKPTR -> -> 0 `i `uc ]
+[e = _who . _ready_queue 2 ]
+[e $ ! == . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 1 -> 0 `i 294  ]
+{
+[; <" PUSH ;# ">
+[e = _TOS -> . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 8 `um ]
+}
+[e $U 295  ]
+[e :U 294 ]
+{
+[e = . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 6 . `E2533 1 ]
+[e = _WREG . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 3 ]
+[e = _STATUS . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 4 ]
+[e = _BSR . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 5 ]
+[e = _size . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 1 ]
+[e $U 296  ]
+[e :U 297 ]
+{
+[; <" PUSH ;# ">
+[e = _TOSL . *U + &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 * -> -> - _size -> 1 `i `ui `ux -> -> # *U &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 `ui `ux 1 ]
+[e = _TOSH . *U + &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 * -> -> - _size -> 1 `i `ui `ux -> -> # *U &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 `ui `ux 2 ]
+[e = _TOSU . *U + &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 * -> -> - _size -> 1 `i `ui `ux -> -> # *U &U . . *U + &U . _ready_queue 0 * -> -> _who `ui `ux -> -> # *U &U . _ready_queue 0 `ui `ux 7 0 `ui `ux 0 ]
+[e -- _size -> 1 `i ]
+}
+[e :U 296 ]
+[e $ != _size -> 0 `i 297  ]
+[e :U 298 ]
+}
+[e :U 295 ]
+}
+"79
+[; ;int0_test.c: 79:     }
+}
+[e :U 290 ]
+"81
+[; ;int0_test.c: 81:   }
+}
+[e :U 289 ]
+"83
+[; ;int0_test.c: 83:   INTCONbits.GIE = 1;
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+"84
+[; ;int0_test.c: 84: }
+[e :UE 288 ]
 }

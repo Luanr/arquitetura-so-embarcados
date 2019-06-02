@@ -3,15 +3,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./semaphore.h: 12: typedef struct semaphore {
 [s S285 `i 1 `ui -> 4 `i `ui 1 `ui 1 ]
 [n S285 semaphore contador bloqued_Queue bloqued_size task_to_ready ]
-"13 ./pipe.h
-[; ;./pipe.h: 13: typedef struct pipe {
+"12 ./pipe.h
+[; ;./pipe.h: 12: typedef struct pipe {
 [s S286 `ui -> 2 `i `ui 1 `ui 1 `ui 1 `*S285 1 ]
 [n S286 pipe pipe_data index_write index_read p_size s ]
 "1699 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 1699: extern volatile unsigned char TRISB __attribute__((address(0xF93)));
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
-"21 ./pipe.h
-[; ;./pipe.h: 21: void pipe_create(pipe_t *p, sem_t *s);
+"19 ./semaphore.h
+[; ;./semaphore.h: 19: void sem_init(sem_t *s, int valor);
+[v _sem_init `(v ~T0 @X0 0 ef2`*S285`i ]
+"20 ./pipe.h
+[; ;./pipe.h: 20: void pipe_create(pipe_t *p, sem_t *s);
 [v _pipe_create `(v ~T0 @X0 0 ef2`*S286`*S285 ]
 "1 ./sralloc.h
 [; ;./sralloc.h: 1: unsigned char * SRAMalloc(unsigned char nBytes);
@@ -22,8 +25,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "8
 [; ;./seven_seg.h: 8: void seven_seg_set(int display, int number) ;
 [v _seven_seg_set `(v ~T0 @X0 0 ef2`i`i ]
-"22 ./pipe.h
-[; ;./pipe.h: 22: void pipe_write(pipe_t *p, unsigned int data);
+"21 ./pipe.h
+[; ;./pipe.h: 21: void pipe_write(pipe_t *p, unsigned int data);
 [v _pipe_write `(v ~T0 @X0 0 ef2`*S286`ui ]
 "277 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 277:     struct {
@@ -55,9 +58,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "65 ./kernel.h
 [; ;./kernel.h: 65: void lunos_delayTask(unsigned int time);
 [v _lunos_delayTask `(v ~T0 @X0 0 ef1`ui ]
-"23 ./pipe.h
-[; ;./pipe.h: 23: void pipe_read(pipe_t *p, unsigned int *data);
+"22 ./pipe.h
+[; ;./pipe.h: 22: void pipe_read(pipe_t *p, unsigned int *data);
 [v _pipe_read `(v ~T0 @X0 0 ef2`*S286`*ui ]
+"20 ./semaphore.h
+[; ;./semaphore.h: 20: void sem_wait(sem_t *s);
+[v _sem_wait `(v ~T0 @X0 0 ef1`*S285 ]
+"21
+[; ;./semaphore.h: 21: void sem_post(sem_t *s);
+[v _sem_post `(v ~T0 @X0 0 ef1`*S285 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 54: __asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
@@ -484,140 +493,247 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _size
 -> 0 `i
 ]
-"18 tasks.c
-[; ;tasks.c: 18: sem_t teste_1, teste_2, s_pipe;
+"14 tasks.c
+[; ;tasks.c: 14: unsigned char* mem;
+[v _mem `*uc ~T0 @X0 1 e ]
+"16
+[; ;tasks.c: 16: sem_t teste_1, teste_2, s_pipe;
 [v _teste_1 `S285 ~T0 @X0 1 e ]
 [v _teste_2 `S285 ~T0 @X0 1 e ]
 [v _s_pipe `S285 ~T0 @X0 1 e ]
-"19
-[; ;tasks.c: 19: pipe_t p;
+"17
+[; ;tasks.c: 17: pipe_t p;
 [v _p `S286 ~T0 @X0 1 e ]
-"29
-[; ;tasks.c: 29: unsigned char* mem;
-[v _mem `*uc ~T0 @X0 1 e ]
-"31
-[; ;tasks.c: 31: void user_conf() {
+"19
+[; ;tasks.c: 19: void user_conf() {
 [v _user_conf `(v ~T0 @X0 1 ef ]
 {
 [e :U _user_conf ]
 [f ]
-"32
-[; ;tasks.c: 32:   TRISB = 0b00000001;
+"20
+[; ;tasks.c: 20:   TRISB = 0b00000001;
 [e = _TRISB -> -> 1 `i `uc ]
-"33
-[; ;tasks.c: 33:   pipe_create(&p, &s_pipe);
+"21
+[; ;tasks.c: 21:   sem_init(&teste_1, 1);
+[e ( _sem_init (2 , &U _teste_1 -> 1 `i ]
+"22
+[; ;tasks.c: 22:   sem_init(&teste_2, 0);
+[e ( _sem_init (2 , &U _teste_2 -> 0 `i ]
+"23
+[; ;tasks.c: 23:   pipe_create(&p, &s_pipe);
 [e ( _pipe_create (2 , &U _p &U _s_pipe ]
-"34
-[; ;tasks.c: 34:   mem = SRAMalloc(5);
+"24
+[; ;tasks.c: 24:   mem = SRAMalloc(5);
 [e = _mem ( _SRAMalloc (1 -> -> 5 `i `uc ]
-"35
-[; ;tasks.c: 35:   seven_seg_init();
+"25
+[; ;tasks.c: 25:   seven_seg_init();
 [e ( _seven_seg_init ..  ]
-"36
-[; ;tasks.c: 36:   seven_seg_set(1, 5);
+"26
+[; ;tasks.c: 26:   seven_seg_set(1, 5);
 [e ( _seven_seg_set (2 , -> 1 `i -> 5 `i ]
-"37
-[; ;tasks.c: 37: }
+"27
+[; ;tasks.c: 27: }
 [e :UE 287 ]
 }
-"39
-[; ;tasks.c: 39: void task_0() {
+"29
+[; ;tasks.c: 29: void task_0() {
 [v _task_0 `(v ~T0 @X0 1 ef ]
 {
 [e :U _task_0 ]
 [f ]
-"40
-[; ;tasks.c: 40:     for (;;) {
+"30
+[; ;tasks.c: 30:   for (;;) {
 {
 [e :U 289 ]
 {
-"41
-[; ;tasks.c: 41:         pipe_write(&p, 1);
+"31
+[; ;tasks.c: 31:     pipe_write(&p, 1);
 [e ( _pipe_write (2 , &U _p -> -> 1 `i `ui ]
-"45
-[; ;tasks.c: 45:         PORTBbits.RB3 = ~PORTBbits.RB3;
+"33
+[; ;tasks.c: 33:     PORTBbits.RB3 = ~PORTBbits.RB3;
 [e = . . _PORTBbits 0 3 -> ~ -> . . _PORTBbits 0 3 `i `uc ]
-"46
-[; ;tasks.c: 46:         lunos_delayTask(1000);
+"35
+[; ;tasks.c: 35:     lunos_delayTask(1000);
 [e ( _lunos_delayTask (1 -> -> 1000 `i `ui ]
-"47
-[; ;tasks.c: 47:     }
+"36
+[; ;tasks.c: 36:   }
 }
 [e $U 289  ]
 [e :U 290 ]
 }
-"48
-[; ;tasks.c: 48: }
+"38
+[; ;tasks.c: 38: }
 [e :UE 288 ]
 }
-"50
-[; ;tasks.c: 50: void task_1() {
+"40
+[; ;tasks.c: 40: void task_1() {
 [v _task_1 `(v ~T0 @X0 1 ef ]
 {
 [e :U _task_1 ]
 [f ]
-"51
-[; ;tasks.c: 51:     unsigned int dado;
+"41
+[; ;tasks.c: 41:   unsigned int dado;
 [v _dado `ui ~T0 @X0 1 a ]
-"52
-[; ;tasks.c: 52:     for (;;) {
+"42
+[; ;tasks.c: 42:   for (;;) {
 {
 [e :U 293 ]
 {
-"53
-[; ;tasks.c: 53:         pipe_read(&p, &dado);
+"43
+[; ;tasks.c: 43:     pipe_read(&p, &dado);
 [e ( _pipe_read (2 , &U _p &U _dado ]
-"54
-[; ;tasks.c: 54:         if (dado == 1) {
+"44
+[; ;tasks.c: 44:     if (dado == 1)
 [e $ ! == _dado -> -> 1 `i `ui 296  ]
-{
-"55
-[; ;tasks.c: 55:             PORTBbits.RB4 = ~PORTBbits.RB4;
+"45
+[; ;tasks.c: 45:       PORTBbits.RB4 = ~PORTBbits.RB4;
 [e = . . _PORTBbits 0 4 -> ~ -> . . _PORTBbits 0 4 `i `uc ]
-"56
-[; ;tasks.c: 56:             pipe_write(&p, 0);
-[e ( _pipe_write (2 , &U _p -> -> 0 `i `ui ]
-"57
-[; ;tasks.c: 57:         }
-}
 [e :U 296 ]
-"58
-[; ;tasks.c: 58:         lunos_delayTask(3000);
+"46
+[; ;tasks.c: 46:     lunos_delayTask(3000);
 [e ( _lunos_delayTask (1 -> -> 3000 `i `ui ]
-"59
-[; ;tasks.c: 59:     }
+"47
+[; ;tasks.c: 47:   }
 }
 [e $U 293  ]
 [e :U 294 ]
 }
-"60
-[; ;tasks.c: 60: }
+"48
+[; ;tasks.c: 48: }
 [e :UE 292 ]
 }
-"62
-[; ;tasks.c: 62: void task_2() {
+"50
+[; ;tasks.c: 50: void task_2() {
 [v _task_2 `(v ~T0 @X0 1 ef ]
 {
 [e :U _task_2 ]
 [f ]
-"63
-[; ;tasks.c: 63:     for (;;) {
+"51
+[; ;tasks.c: 51:   for (;;) {
 {
 [e :U 298 ]
 {
-"64
-[; ;tasks.c: 64:         PORTBbits.RB5 = ~PORTBbits.RB5;
+"52
+[; ;tasks.c: 52:     PORTBbits.RB5 = ~PORTBbits.RB5;
 [e = . . _PORTBbits 0 5 -> ~ -> . . _PORTBbits 0 5 `i `uc ]
-"65
-[; ;tasks.c: 65:         lunos_delayTask(1000);
+"53
+[; ;tasks.c: 53:     lunos_delayTask(1000);
 [e ( _lunos_delayTask (1 -> -> 1000 `i `ui ]
-"66
-[; ;tasks.c: 66:     }
+"54
+[; ;tasks.c: 54:   }
 }
 [e $U 298  ]
 [e :U 299 ]
 }
+"56
+[; ;tasks.c: 56: }
+[e :UE 297 ]
+}
+"58
+[; ;tasks.c: 58: void task_bozo() {
+[v _task_bozo `(v ~T0 @X0 1 ef ]
+{
+[e :U _task_bozo ]
+[f ]
+"59
+[; ;tasks.c: 59:   while (1) {
+[e :U 303 ]
+{
+"60
+[; ;tasks.c: 60:     int i;
+[v _i `i ~T0 @X0 1 a ]
+"61
+[; ;tasks.c: 61:     sem_wait(&teste_1);
+[e ( _sem_wait (1 &U _teste_1 ]
+"62
+[; ;tasks.c: 62:     for (i = 0; i < 5; i++) {
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 305  ]
+[e $U 306  ]
+[e :U 305 ]
+{
+"63
+[; ;tasks.c: 63:       mem[i] = i+1;
+[e = *U + _mem * -> _i `x -> -> # *U _mem `i `x -> + _i -> 1 `i `uc ]
+"64
+[; ;tasks.c: 64:     }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 305  ]
+[e :U 306 ]
+}
+"65
+[; ;tasks.c: 65:     sem_post(&teste_2);
+[e ( _sem_post (1 &U _teste_2 ]
+"66
+[; ;tasks.c: 66:   }
+}
+[e :U 302 ]
+[e $U 303  ]
+[e :U 304 ]
 "67
 [; ;tasks.c: 67: }
-[e :UE 297 ]
+[e :UE 301 ]
+}
+"69
+[; ;tasks.c: 69: void task_xuxa() {
+[v _task_xuxa `(v ~T0 @X0 1 ef ]
+{
+[e :U _task_xuxa ]
+[f ]
+"70
+[; ;tasks.c: 70:   int i;
+[v _i `i ~T0 @X0 1 a ]
+"71
+[; ;tasks.c: 71:   while (1) {
+[e :U 310 ]
+{
+"72
+[; ;tasks.c: 72:     sem_wait(&teste_2);
+[e ( _sem_wait (1 &U _teste_2 ]
+"73
+[; ;tasks.c: 73:     for (i = 0; i < 5; i++) {
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 312  ]
+[e $U 313  ]
+[e :U 312 ]
+{
+"74
+[; ;tasks.c: 74:       if (mem[i] % 2 == 0)
+[e $ ! == % -> *U + _mem * -> _i `x -> -> # *U _mem `i `x `i -> 2 `i -> 0 `i 315  ]
+"75
+[; ;tasks.c: 75:         PORTBbits.RB3 = ~PORTBbits.RB3;
+[e = . . _PORTBbits 0 3 -> ~ -> . . _PORTBbits 0 3 `i `uc ]
+[e $U 316  ]
+"76
+[; ;tasks.c: 76:       else
+[e :U 315 ]
+"77
+[; ;tasks.c: 77:         PORTBbits.RB5 = ~PORTBbits.RB5;
+[e = . . _PORTBbits 0 5 -> ~ -> . . _PORTBbits 0 5 `i `uc ]
+[e :U 316 ]
+"78
+[; ;tasks.c: 78:       lunos_delayTask(1000);
+[e ( _lunos_delayTask (1 -> -> 1000 `i `ui ]
+"79
+[; ;tasks.c: 79:     }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 312  ]
+[e :U 313 ]
+}
+"80
+[; ;tasks.c: 80:     sem_post(&teste_1);
+[e ( _sem_post (1 &U _teste_1 ]
+"81
+[; ;tasks.c: 81:   }
+}
+[e :U 309 ]
+[e $U 310  ]
+[e :U 311 ]
+"82
+[; ;tasks.c: 82: }
+[e :UE 308 ]
 }

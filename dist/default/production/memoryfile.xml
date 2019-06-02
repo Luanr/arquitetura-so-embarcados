@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production\LunOS_v1.X.production.hex">
+  <executable name="dist/default/production\arquitetura-so-embarcados.production.hex">
     <memory name="program">
       <units>bytes</units>
       <length>32768</length>
-      <used>4486</used>
-      <free>28282</free>
+      <used>6934</used>
+      <free>25834</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>1536</length>
-      <used>1135</used>
-      <free>401</free>
+      <used>1164</used>
+      <free>372</free>
     </memory>
   </executable>
 </project>

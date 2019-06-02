@@ -4606,11 +4606,14 @@ void user_conf();
 void task_0();
 void task_1();
 void task_2();
+void task_bozo();
+void task_xuxa();
 # 7 "main.c" 2
 
 # 1 "./int0_test.h" 1
 # 10 "./int0_test.h"
 void config_INT0();
+void config_INT1();
 void config_timer0();
 void __attribute__((picinterrupt(("")))) ISR_Int0(void);
 void __attribute__((picinterrupt(("")))) ISR_timer0();
@@ -4631,22 +4634,11 @@ void sem_post(sem_t *s);
 int sem_get_value(sem_t s);
 # 9 "main.c" 2
 
-# 1 "./seven_seg.h" 1
-
-
-
-
-
-
-void seven_seg_init(void);
-void seven_seg_set(int display, int number) ;
-# 10 "main.c" 2
-
 
 #pragma config PBADEN = OFF
 #pragma config WDT = OFF
 
-__asm("GLOBAL _task_idle, _task_0, _task_1, _task_2");
+__asm("GLOBAL _task_idle, _task_0, _task_1, _task_2, _task_bozo, _task_xuxa");
 
 void main(void) {
 
@@ -4656,13 +4648,13 @@ void main(void) {
   config_INT0();
   config_timer0();
 
-  seven_seg_init();
-  seven_seg_set(1, 5);
 
 
-  lunos_createTask(3, &task_0);
-  lunos_createTask(4, &task_1);
-  lunos_createTask(5, &task_2);
+
+
+
+  lunos_createTask(5, &task_bozo);
+  lunos_createTask(5, &task_xuxa);
 
   dispatcher(READY);
 

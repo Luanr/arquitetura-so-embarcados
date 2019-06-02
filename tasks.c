@@ -9,6 +9,7 @@
 #include "kernel.h"
 #include "pipe.h"
 #include "sralloc.h"
+#include "seven_seg.h"
 
 unsigned char* mem;
 
@@ -21,6 +22,8 @@ void user_conf() {
   sem_init(&teste_2, 0);
   pipe_create(&p, &s_pipe);
   mem = SRAMalloc(5);
+  seven_seg_init();
+  seven_seg_set(1, 5);
 }
 
 void task_0() {

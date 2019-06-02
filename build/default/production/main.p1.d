@@ -5,5 +5,4 @@ types.h  \
 config.h  \
 tasks.h  \
 int0_test.h  \
-semaphore.h  \
-seven_seg.h 
+semaphore.h 

@@ -3,8 +3,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./semaphore.h: 12: typedef struct semaphore {
 [s S5 `i 1 `ui -> 4 `i `ui 1 `ui 1 ]
 [n S5 semaphore contador bloqued_Queue bloqued_size task_to_ready ]
-"13 ./pipe.h
-[; ;./pipe.h: 13: typedef struct pipe {
+"12 ./pipe.h
+[; ;./pipe.h: 12: typedef struct pipe {
 [s S6 `ui -> 2 `i `ui 1 `ui 1 `ui 1 `*S5 1 ]
 [n S6 pipe pipe_data index_write index_read p_size s ]
 "19 ./semaphore.h
@@ -29,6 +29,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "6724
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 6724: extern volatile INTCONbits_t INTCONbits __attribute__((address(0xFF2)));
 [v _INTCONbits `VS280 ~T0 @X0 0 e@4082 ]
+"22 ./semaphore.h
+[; ;./semaphore.h: 22: int sem_get_value(sem_t s);
+[v _sem_get_value `(i ~T0 @X0 0 ef1`S5 ]
+"21
+[; ;./semaphore.h: 21: void sem_post(sem_t *s);
+[v _sem_post `(v ~T0 @X0 0 ef1`*S5 ]
+"20
+[; ;./semaphore.h: 20: void sem_wait(sem_t *s);
+[v _sem_wait `(v ~T0 @X0 0 ef1`*S5 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 54: __asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
@@ -473,94 +482,125 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;pipe.c: 12:   p->p_size = 0;
 [e = . *U _p 3 -> -> 0 `i `ui ]
 "13
-[; ;pipe.c: 13:   sem_init(p->s, 0);
-[e ( _sem_init (2 , . *U _p 4 -> 0 `i ]
+[; ;pipe.c: 13:   p->s = s;
+[e = . *U _p 4 _s ]
 "14
-[; ;pipe.c: 14: }
+[; ;pipe.c: 14:   sem_init(p->s, 0);
+[e ( _sem_init (2 , . *U _p 4 -> 0 `i ]
+"15
+[; ;pipe.c: 15: }
 [e :UE 287 ]
 }
-"16
-[; ;pipe.c: 16: void pipe_write(pipe_t *p, unsigned int data) {
+"17
+[; ;pipe.c: 17: void pipe_write(pipe_t *p, unsigned int data) {
 [v _pipe_write `(v ~T0 @X0 1 ef2`*S6`ui ]
 {
 [e :U _pipe_write ]
 [v _p `*S6 ~T0 @X0 1 r1 ]
 [v _data `ui ~T0 @X0 1 r2 ]
 [f ]
-"17
-[; ;pipe.c: 17:   INTCONbits.GIE = 0;
+"18
+[; ;pipe.c: 18:   INTCONbits.GIE = 0;
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-"21
-[; ;pipe.c: 21:   if (p->p_size < 2) {
+"20
+[; ;pipe.c: 20:   if (p->p_size < 2) {
 [e $ ! < . *U _p 3 -> -> 2 `i `ui 289  ]
 {
-"22
-[; ;pipe.c: 22:     p->pipe_data[p->index_write] = data;
+"21
+[; ;pipe.c: 21:     p->pipe_data[p->index_write] = data;
 [e = *U + &U . *U _p 0 * -> . *U _p 1 `ux -> -> # *U &U . *U _p 0 `ui `ux _data ]
-"23
-[; ;pipe.c: 23:     p->index_write = (p->index_write + 1) % 2;
+"22
+[; ;pipe.c: 22:     p->index_write = (p->index_write + 1) % 2;
 [e = . *U _p 1 % + . *U _p 1 -> -> 1 `i `ui -> -> 2 `i `ui ]
-"24
-[; ;pipe.c: 24:     p->p_size++;
+"23
+[; ;pipe.c: 23:     p->p_size++;
 [e ++ . *U _p 3 -> -> 1 `i `ui ]
-"34
-[; ;pipe.c: 34:   }
+"24
+[; ;pipe.c: 24:     if (sem_get_value(*p->s) < 0) sem_post(p->s);
+[e $ ! < ( _sem_get_value (1 *U . *U _p 4 -> 0 `i 290  ]
+[e ( _sem_post (1 . *U _p 4 ]
+[e :U 290 ]
+"25
+[; ;pipe.c: 25:   } else {
 }
+[e $U 291  ]
 [e :U 289 ]
-"35
-[; ;pipe.c: 35:   INTCONbits.GIE = 1;
+{
+"26
+[; ;pipe.c: 26:     sem_wait(p->s);
+[e ( _sem_wait (1 . *U _p 4 ]
+"27
+[; ;pipe.c: 27:   }
+}
+[e :U 291 ]
+"29
+[; ;pipe.c: 29:   INTCONbits.GIE = 1;
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-"36
-[; ;pipe.c: 36: }
+"30
+[; ;pipe.c: 30: }
 [e :UE 288 ]
 }
-"38
-[; ;pipe.c: 38: void pipe_read(pipe_t *p, unsigned int *data) {
+"32
+[; ;pipe.c: 32: void pipe_read(pipe_t *p, unsigned int *data) {
 [v _pipe_read `(v ~T0 @X0 1 ef2`*S6`*ui ]
 {
 [e :U _pipe_read ]
 [v _p `*S6 ~T0 @X0 1 r1 ]
 [v _data `*ui ~T0 @X0 1 r2 ]
 [f ]
-"39
-[; ;pipe.c: 39:   INTCONbits.GIE = 0;
+"33
+[; ;pipe.c: 33:   INTCONbits.GIE = 0;
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-"43
-[; ;pipe.c: 43:   if (p->p_size > 0) {
-[e $ ! > . *U _p 3 -> -> 0 `i `ui 291  ]
+"35
+[; ;pipe.c: 35:   if (p->p_size > 0) {
+[e $ ! > . *U _p 3 -> -> 0 `i `ui 293  ]
 {
-"44
-[; ;pipe.c: 44:     *data = p->pipe_data[p->index_read];
+"36
+[; ;pipe.c: 36:     *data = p->pipe_data[p->index_read];
 [e = *U _data *U + &U . *U _p 0 * -> . *U _p 2 `ux -> -> # *U &U . *U _p 0 `ui `ux ]
-"45
-[; ;pipe.c: 45:     p->index_read = (p->index_read + 1) % 2;
+"37
+[; ;pipe.c: 37:     p->index_read = (p->index_read + 1) % 2;
 [e = . *U _p 2 % + . *U _p 2 -> -> 1 `i `ui -> -> 2 `i `ui ]
-"46
-[; ;pipe.c: 46:     p->p_size--;
+"38
+[; ;pipe.c: 38:     p->p_size--;
 [e -- . *U _p 3 -> -> 1 `i `ui ]
-"53
-[; ;pipe.c: 53:   }
+"39
+[; ;pipe.c: 39:     if (sem_get_value(*p->s) < 0) sem_post(p->s);
+[e $ ! < ( _sem_get_value (1 *U . *U _p 4 -> 0 `i 294  ]
+[e ( _sem_post (1 . *U _p 4 ]
+[e :U 294 ]
+"40
+[; ;pipe.c: 40:   } else {
 }
-[e :U 291 ]
-"54
-[; ;pipe.c: 54:   INTCONbits.GIE = 1;
+[e $U 295  ]
+[e :U 293 ]
+{
+"41
+[; ;pipe.c: 41:     sem_wait(p->s);
+[e ( _sem_wait (1 . *U _p 4 ]
+"42
+[; ;pipe.c: 42:   }
+}
+[e :U 295 ]
+"44
+[; ;pipe.c: 44:   INTCONbits.GIE = 1;
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-"59
-[; ;pipe.c: 59: }
-[e :UE 290 ]
+"45
+[; ;pipe.c: 45: }
+[e :UE 292 ]
 }
-"61
-[; ;pipe.c: 61: unsigned int pipe_size(pipe_t p) {
+"47
+[; ;pipe.c: 47: unsigned int pipe_size(pipe_t p) {
 [v _pipe_size `(ui ~T0 @X0 1 ef1`S6 ]
 {
 [e :U _pipe_size ]
 [v _p `S6 ~T0 @X0 1 r1 ]
 [f ]
-"62
-[; ;pipe.c: 62:   return p.p_size;
+"48
+[; ;pipe.c: 48:   return p.p_size;
 [e ) . _p 3 ]
-[e $UE 292  ]
-"63
-[; ;pipe.c: 63: }
-[e :UE 292 ]
+[e $UE 296  ]
+"49
+[; ;pipe.c: 49: }
+[e :UE 296 ]
 }

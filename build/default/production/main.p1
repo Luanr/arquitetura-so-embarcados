@@ -9,29 +9,20 @@ Version 4.0 HI-TECH Software Intermediate Code
 "10 ./int0_test.h
 [; ;./int0_test.h: 10: void config_INT0();
 [v _config_INT0 `(v ~T0 @X0 0 e? ]
-"11
-[; ;./int0_test.h: 11: void config_timer0();
+"12
+[; ;./int0_test.h: 12: void config_timer0();
 [v _config_timer0 `(v ~T0 @X0 0 e? ]
-"7 ./seven_seg.h
-[; ;./seven_seg.h: 7: void seven_seg_init(void);
-[v _seven_seg_init `(v ~T0 @X0 0 ef ]
-"8
-[; ;./seven_seg.h: 8: void seven_seg_set(int display, int number) ;
-[v _seven_seg_set `(v ~T0 @X0 0 ef2`i`i ]
 [v F2567 `(v ~T0 @X0 0 t? ]
 "64 ./kernel.h
 [; ;./kernel.h: 64: void lunos_createTask(unsigned int prior, void(*f)());
 [v _lunos_createTask `(v ~T0 @X0 0 ef2`ui`*F2567 ]
-"9 ./tasks.h
-[; ;./tasks.h: 9: void task_0();
-[v _task_0 `(v ~T0 @X0 0 e? ]
-"10
-[; ;./tasks.h: 10: void task_1();
-[v _task_1 `(v ~T0 @X0 0 e? ]
-"11
-[; ;./tasks.h: 11: void task_2();
-[v _task_2 `(v ~T0 @X0 0 e? ]
-"33 main.c
+"12 ./tasks.h
+[; ;./tasks.h: 12: void task_bozo();
+[v _task_bozo `(v ~T0 @X0 0 e? ]
+"13
+[; ;./tasks.h: 13: void task_xuxa();
+[v _task_xuxa `(v ~T0 @X0 0 e? ]
+"32 main.c
 [c E2528 0 1 2 3 4 5 .. ]
 [n E2528 . READY RUNNING WAITING FINISHED WAITING_PIPE WAITING_SEM  ]
 "72 ./kernel.h
@@ -463,53 +454,47 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _size
 -> 0 `i
 ]
-"12 main.c
-[; ;main.c: 12: 
+"11 main.c
+[; ;main.c: 11: 
 [p x PBADEN = OFF ]
-"13
-[; ;main.c: 13: 
+"12
+[; ;main.c: 12: 
 [p x WDT    = OFF ]
-"15
-[; ;main.c: 15:   lunos_createTask(4, &task_1);
-[; <" GLOBAL _task_idle, _task_0, _task_1, _task_2 ;# ">
+"14
+[; ;main.c: 14: 
+[; <" GLOBAL _task_idle, _task_0, _task_1, _task_2, _task_bozo, _task_xuxa ;# ">
 [v $root$_main `(v ~T0 @X0 0 e ]
-"17
-[; ;main.c: 17: 
+"16
+[; ;main.c: 16:   lunos_createTask(5, &task_xuxa);
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"19
-[; ;main.c: 19: 
+"18
+[; ;main.c: 18:   dispatcher(READY);
 [e ( _lunos_init ..  ]
+"20
+[; ;main.c: 20:   while (1);
+[e ( _user_conf ..  ]
 "21
 [; ;main.c: 21: 
-[e ( _user_conf ..  ]
+[e ( _config_INT0 ..  ]
 "22
 [; ;main.c: 22:   return;
-[e ( _config_INT0 ..  ]
-"23
-[; ;main.c: 23: }
 [e ( _config_timer0 ..  ]
-"25
-[e ( _seven_seg_init ..  ]
-"26
-[e ( _seven_seg_set (2 , -> 1 `i -> 5 `i ]
 "29
-[e ( _lunos_createTask (2 , -> -> 3 `i `ui &U _task_0 ]
+[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_bozo ]
 "30
-[e ( _lunos_createTask (2 , -> -> 4 `i `ui &U _task_1 ]
-"31
-[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_2 ]
-"33
+[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_xuxa ]
+"32
 [e ( _dispatcher (1 . `E2528 0 ]
-"35
+"34
 [e :U 288 ]
 [e :U 287 ]
 [e $U 288  ]
 [e :U 289 ]
-"37
+"36
 [e $UE 286  ]
-"38
+"37
 [e :UE 286 ]
 }

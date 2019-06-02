@@ -4611,7 +4611,9 @@ void SRAMInitHeap(void);
 
 
 t_r_queue ready_queue;
-# 22 "kernel.c"
+
+
+
 void lunos_createTask(unsigned int prior, void(*f)()) {
   t_pcb new_task;
 
@@ -4657,9 +4659,9 @@ void lunos_init() {
 
 unsigned int scheduler() {
 
+  return round_robin();
 
 
-  return priority();
 
 }
 
@@ -4707,7 +4709,7 @@ void delay_decrement() {
       if (ready_queue.tasks[i].task_delay_time == 0) {
         ready_queue.tasks[i].task_state = READY;
 
-        dispatcher(READY);
+
 
       }
     }

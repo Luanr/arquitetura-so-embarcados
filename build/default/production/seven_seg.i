@@ -4526,17 +4526,22 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 
 void seven_seg_init(void) {
 
-    TRISA = 0b11000000;
-    PORTA = 0b00000000;
+    TRISC = 0b11000000;
+    PORTC = 0b00000000;
 }
 
 void seven_seg_set(int display, int number) {
 
     if(display == 1) {
-        PORTA = PORTA & 0b11111000;
-        PORTA = PORTA | number;
+
+
+        PORTC = PORTC & 0b11111000;
+
+
+
+        PORTC = PORTC | number;
     } else if (display == 2) {
-        PORTA = PORTA & 0b11000111;
-        PORTA = PORTA | number << 3;
+        PORTC = PORTC & 0b11000111;
+        PORTC = PORTC | number << 3;
     }
 }

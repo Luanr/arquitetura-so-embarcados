@@ -8,6 +8,7 @@
 #include <xc.h>
 
 void config_INT0();
+void config_INT1();
 void config_timer0();
 void __interrupt() ISR_Int0(void);
 void __interrupt() ISR_timer0();

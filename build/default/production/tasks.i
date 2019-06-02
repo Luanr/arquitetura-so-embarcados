@@ -11,10 +11,6 @@
 
 
 
-
-
-
-
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\pic18f4520.h" 1 3
 # 44 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\pic18f4520.h" 3
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\__at.h" 1 3
@@ -4364,7 +4360,7 @@ extern volatile __bit nWR __attribute__((address(0x7C21)));
 
 
 extern volatile __bit nWRITE __attribute__((address(0x7E3A)));
-# 9 "tasks.c" 2
+# 5 "tasks.c" 2
 
 # 1 "./tasks.h" 1
 
@@ -4378,7 +4374,9 @@ void user_conf();
 void task_0();
 void task_1();
 void task_2();
-# 10 "tasks.c" 2
+void task_bozo();
+void task_xuxa();
+# 6 "tasks.c" 2
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\xc.h" 3
@@ -4537,7 +4535,7 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 32 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\xc.h" 2 3
-# 11 "tasks.c" 2
+# 7 "tasks.c" 2
 
 # 1 "./semaphore.h" 1
 
@@ -4601,7 +4599,7 @@ void sem_init(sem_t *s, int valor);
 void sem_wait(sem_t *s);
 void sem_post(sem_t *s);
 int sem_get_value(sem_t s);
-# 12 "tasks.c" 2
+# 8 "tasks.c" 2
 
 # 1 "./kernel.h" 1
 # 13 "./kernel.h"
@@ -4622,10 +4620,10 @@ unsigned int round_robin();
 unsigned int priority();
 void delay_decrement();
 void task_idle();
-# 13 "tasks.c" 2
+# 9 "tasks.c" 2
 
 # 1 "./pipe.h" 1
-# 13 "./pipe.h"
+# 12 "./pipe.h"
 typedef struct pipe {
   unsigned int pipe_data[2];
   unsigned int index_write;
@@ -4638,13 +4636,13 @@ void pipe_create(pipe_t *p, sem_t *s);
 void pipe_write(pipe_t *p, unsigned int data);
 void pipe_read(pipe_t *p, unsigned int *data);
 unsigned int pipe_size(pipe_t p);
-# 14 "tasks.c" 2
+# 10 "tasks.c" 2
 
 # 1 "./sralloc.h" 1
 unsigned char * SRAMalloc(unsigned char nBytes);
 void SRAMfree(unsigned char * pSRAM);
 void SRAMInitHeap(void);
-# 15 "tasks.c" 2
+# 11 "tasks.c" 2
 
 # 1 "./seven_seg.h" 1
 
@@ -4655,16 +4653,18 @@ void SRAMInitHeap(void);
 
 void seven_seg_init(void);
 void seven_seg_set(int display, int number) ;
-# 16 "tasks.c" 2
+# 12 "tasks.c" 2
 
+
+unsigned char* mem;
 
 sem_t teste_1, teste_2, s_pipe;
 pipe_t p;
-# 29 "tasks.c"
-unsigned char* mem;
 
 void user_conf() {
   TRISB = 0b00000001;
+  sem_init(&teste_1, 1);
+  sem_init(&teste_2, 0);
   pipe_create(&p, &s_pipe);
   mem = SRAMalloc(5);
   seven_seg_init();
@@ -4672,31 +4672,56 @@ void user_conf() {
 }
 
 void task_0() {
-    for (;;) {
-        pipe_write(&p, 1);
+  for (;;) {
+    pipe_write(&p, 1);
 
+    PORTBbits.RB3 = ~PORTBbits.RB3;
 
+    lunos_delayTask(1000);
+  }
 
-        PORTBbits.RB3 = ~PORTBbits.RB3;
-        lunos_delayTask(1000);
-    }
 }
 
 void task_1() {
-    unsigned int dado;
-    for (;;) {
-        pipe_read(&p, &dado);
-        if (dado == 1) {
-            PORTBbits.RB4 = ~PORTBbits.RB4;
-            pipe_write(&p, 0);
-        }
-        lunos_delayTask(3000);
-    }
+  unsigned int dado;
+  for (;;) {
+    pipe_read(&p, &dado);
+    if (dado == 1)
+      PORTBbits.RB4 = ~PORTBbits.RB4;
+    lunos_delayTask(3000);
+  }
 }
 
 void task_2() {
-    for (;;) {
-        PORTBbits.RB5 = ~PORTBbits.RB5;
-        lunos_delayTask(1000);
+  for (;;) {
+    PORTBbits.RB5 = ~PORTBbits.RB5;
+    lunos_delayTask(1000);
+  }
+
+}
+
+void task_bozo() {
+  while (1) {
+    int i;
+    sem_wait(&teste_1);
+    for (i = 0; i < 5; i++) {
+      mem[i] = i+1;
     }
+    sem_post(&teste_2);
+  }
+}
+
+void task_xuxa() {
+  int i;
+  while (1) {
+    sem_wait(&teste_2);
+    for (i = 0; i < 5; i++) {
+      if (mem[i] % 2 == 0)
+        PORTBbits.RB3 = ~PORTBbits.RB3;
+      else
+        PORTBbits.RB5 = ~PORTBbits.RB5;
+      lunos_delayTask(1000);
+    }
+    sem_post(&teste_1);
+  }
 }

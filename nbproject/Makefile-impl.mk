@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=LunOS_v1.X
+PROJECTNAME=arquitetura-so-embarcados
 
 # Active Configuration
 DEFAULTCONF=default
