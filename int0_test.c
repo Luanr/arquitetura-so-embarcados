@@ -20,17 +20,11 @@ void config_INT0() {
   INTCON2bits.INTEDG0 = 0;
 }
 
-void config_INT1() {
-  //INTC1Nbits.INT1E = 1;
-  //INTC1Nbits.INT1IE = 1;
-  //INTC1Nbits.INT1IF = 0;
-}
-
 void config_timer0() {
   // Timer
-  // Configuraï¿½ï¿½o para o timer estourar a cada
+  // Configuração para o timer estourar a cada
   // 4 ms
-  // Configuraï¿½ï¿½o considerando o timer 0 8 bits
+  // Configuração considerando o timer 0 8 bits
   T0CONbits.T0CS = 0;
   T0CONbits.PSA = 0;
   T0CONbits.T0PS = 0b111;
@@ -38,8 +32,6 @@ void config_timer0() {
   INTCONbits.TMR0IE = 1;
   TMR0L = 252;
 }
-
-
 
 //void __interrupt() ISR_Int0(void) {
 //  DISABLE_ALL_INTERRUPTS();
@@ -49,7 +41,7 @@ void config_timer0() {
 //    INTCONbits.INT0IF = 0;
 //    SAVE_CONTEXT(READY);
 //    // Decrementa o tempo de espera por delay de cada
-//    // tarefa que estï¿½ na fila de aptos em estado de 
+//    // tarefa que está na fila de aptos em estado de 
 //    // WAITING
 //    delay_decrement();
 //    ready_queue.task_running = round_robin();

@@ -4567,7 +4567,7 @@ typedef struct pcb {
 } t_pcb;
 
 typedef struct r_queue {
-  t_pcb tasks[4 +1];
+  t_pcb tasks[7 +1];
   unsigned int tasks_installed;
   int task_running;
 } t_r_queue;
@@ -4603,17 +4603,17 @@ void task_idle();
 
 
 void user_conf();
-void task_0();
-void task_1();
-void task_2();
-void task_bozo();
-void task_xuxa();
+void task_entrance_01();
+void task_entrance_02();
+void task_spot_04();
+void task_spot_01();
+void task_spot_02();
+void task_spot_03();
 # 7 "main.c" 2
 
 # 1 "./int0_test.h" 1
 # 10 "./int0_test.h"
 void config_INT0();
-void config_INT1();
 void config_timer0();
 void __attribute__((picinterrupt(("")))) ISR_Int0(void);
 void __attribute__((picinterrupt(("")))) ISR_timer0();
@@ -4623,7 +4623,7 @@ void __attribute__((picinterrupt(("")))) ISR_timer0();
 # 12 "./semaphore.h"
 typedef struct semaphore {
   int contador;
-  unsigned int bloqued_Queue[4];
+  unsigned int bloqued_Queue[7];
   unsigned int bloqued_size;
   unsigned int task_to_ready;
 } sem_t;
@@ -4638,7 +4638,10 @@ int sem_get_value(sem_t s);
 #pragma config PBADEN = OFF
 #pragma config WDT = OFF
 
-__asm("GLOBAL _task_idle, _task_0, _task_1, _task_2, _task_bozo, _task_xuxa");
+
+__asm("GLOBAL _task_idle, _task_entrance_01, _task_entrance_02, _task_spot_01, _task_spot_02, _task_spot_03, _task_spot_04");
+
+
 
 void main(void) {
 
@@ -4649,12 +4652,13 @@ void main(void) {
   config_timer0();
 
 
+  lunos_createTask(5, &task_entrance_01);
+  lunos_createTask(4, &task_entrance_02);
 
-
-
-
-  lunos_createTask(5, &task_bozo);
-  lunos_createTask(5, &task_xuxa);
+  lunos_createTask(5, &task_spot_01);
+  lunos_createTask(5, &task_spot_02);
+  lunos_createTask(5, &task_spot_03);
+  lunos_createTask(5, &task_spot_04);
 
   dispatcher(READY);
 

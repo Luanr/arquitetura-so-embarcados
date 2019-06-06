@@ -54,7 +54,7 @@ typedef struct pcb {
 } t_pcb;
 
 typedef struct r_queue {
-  t_pcb tasks[4 +1];
+  t_pcb tasks[7 +1];
   unsigned int tasks_installed;
   int task_running;
 } t_r_queue;
@@ -64,7 +64,7 @@ typedef struct r_queue {
 
 typedef struct semaphore {
   int contador;
-  unsigned int bloqued_Queue[4];
+  unsigned int bloqued_Queue[7];
   unsigned int bloqued_size;
   unsigned int task_to_ready;
 } sem_t;
@@ -4635,7 +4635,7 @@ void sem_wait(sem_t *s) {
   s->contador -= 1;
   if (s->contador < 0) {
     s->bloqued_Queue[s->bloqued_size] = ready_queue.task_running;
-    s->bloqued_size = (s->bloqued_size + 1) % 4;
+    s->bloqued_size = (s->bloqued_size + 1) % 7;
     dispatcher(WAITING_SEM);
   }
 
@@ -4648,7 +4648,7 @@ void sem_post(sem_t *s) {
   s->contador += 1;
   if (s->contador <= 0) {
     ready_queue.tasks[s->bloqued_Queue[s->task_to_ready]].task_state = READY;
-    s->task_to_ready = (s->task_to_ready + 1) % 4;
+    s->task_to_ready = (s->task_to_ready + 1) % 7;
     dispatcher(READY);
   }
 

@@ -11,7 +11,10 @@
 #pragma config PBADEN = OFF
 #pragma config WDT    = OFF
 
-asm("GLOBAL _task_idle, _task_0, _task_1, _task_2, _task_bozo, _task_xuxa");
+
+asm("GLOBAL _task_idle, _task_entrance_01, _task_entrance_02, _task_spot_01, _task_spot_02, _task_spot_03, _task_spot_04");
+
+
 
 void main(void) {
 
@@ -21,13 +24,14 @@ void main(void) {
   config_INT0();
   config_timer0();
 
-  // Cria tarefas de usuï¿½rio
-  //lunos_createTask(3, &task_0);
-  //lunos_createTask(4, &task_1);
-  //lunos_createTask(5, &task_2);
+  // Cria tarefas de usuário
+  lunos_createTask(5, &task_entrance_01);
+  lunos_createTask(4, &task_entrance_02);
   
-  lunos_createTask(5, &task_bozo);
-  lunos_createTask(5, &task_xuxa);
+  lunos_createTask(5, &task_spot_01);
+  lunos_createTask(5, &task_spot_02);
+  lunos_createTask(5, &task_spot_03);
+  lunos_createTask(5, &task_spot_04);
   
   dispatcher(READY);
 

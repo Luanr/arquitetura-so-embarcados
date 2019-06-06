@@ -1,33 +1,43 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"12 ./semaphore.h
-[; ;./semaphore.h: 12: typedef struct semaphore {
-[s S285 `i 1 `ui -> 4 `i `ui 1 `ui 1 ]
-[n S285 semaphore contador bloqued_Queue bloqued_size task_to_ready ]
-"12 ./pipe.h
-[; ;./pipe.h: 12: typedef struct pipe {
-[s S286 `ui -> 2 `i `ui 1 `ui 1 `ui 1 `*S285 1 ]
-[n S286 pipe pipe_data index_write index_read p_size s ]
 "1699 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 1699: extern volatile unsigned char TRISB __attribute__((address(0xF93)));
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
-"19 ./semaphore.h
-[; ;./semaphore.h: 19: void sem_init(sem_t *s, int valor);
-[v _sem_init `(v ~T0 @X0 0 ef2`*S285`i ]
-"20 ./pipe.h
-[; ;./pipe.h: 20: void pipe_create(pipe_t *p, sem_t *s);
-[v _pipe_create `(v ~T0 @X0 0 ef2`*S286`*S285 ]
 "1 ./sralloc.h
 [; ;./sralloc.h: 1: unsigned char * SRAMalloc(unsigned char nBytes);
 [v _SRAMalloc `(*uc ~T0 @X0 0 ef1`uc ]
 "7 ./seven_seg.h
 [; ;./seven_seg.h: 7: void seven_seg_init(void);
 [v _seven_seg_init `(v ~T0 @X0 0 ef ]
-"8
+"456 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 456:     struct {
+[s S18 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S18 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
+"466
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 466:     struct {
+[s S19 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S19 . T1OSO T1OSI CCP1 SCK SDI SDO TX RX ]
+"476
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 476:     struct {
+[s S20 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S20 . T13CKI CCP2 . SCL SDA . CK DT ]
+"486
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 486:     struct {
+[s S21 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S21 . T1CKI . P1A ]
+"491
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 491:     struct {
+[s S22 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S22 . . PA2 PA1 ]
+"455
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 455: typedef union {
+[u S17 `S18 1 `S19 1 `S20 1 `S21 1 `S22 1 ]
+[n S17 . . . . . . ]
+"497
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 497: extern volatile PORTCbits_t PORTCbits __attribute__((address(0xF82)));
+[v _PORTCbits `VS17 ~T0 @X0 0 e@3970 ]
+"8 ./seven_seg.h
 [; ;./seven_seg.h: 8: void seven_seg_set(int display, int number) ;
 [v _seven_seg_set `(v ~T0 @X0 0 ef2`i`i ]
-"21 ./pipe.h
-[; ;./pipe.h: 21: void pipe_write(pipe_t *p, unsigned int data);
-[v _pipe_write `(v ~T0 @X0 0 ef2`*S286`ui ]
 "277 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 277:     struct {
 [s S12 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -58,15 +68,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "65 ./kernel.h
 [; ;./kernel.h: 65: void lunos_delayTask(unsigned int time);
 [v _lunos_delayTask `(v ~T0 @X0 0 ef1`ui ]
-"22 ./pipe.h
-[; ;./pipe.h: 22: void pipe_read(pipe_t *p, unsigned int *data);
-[v _pipe_read `(v ~T0 @X0 0 ef2`*S286`*ui ]
-"20 ./semaphore.h
-[; ;./semaphore.h: 20: void sem_wait(sem_t *s);
-[v _sem_wait `(v ~T0 @X0 0 ef1`*S285 ]
-"21
-[; ;./semaphore.h: 21: void sem_post(sem_t *s);
-[v _sem_post `(v ~T0 @X0 0 ef1`*S285 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f4520.h: 54: __asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
@@ -493,247 +494,499 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _size
 -> 0 `i
 ]
-"14 tasks.c
-[; ;tasks.c: 14: unsigned char* mem;
-[v _mem `*uc ~T0 @X0 1 e ]
-"16
-[; ;tasks.c: 16: sem_t teste_1, teste_2, s_pipe;
-[v _teste_1 `S285 ~T0 @X0 1 e ]
-[v _teste_2 `S285 ~T0 @X0 1 e ]
-[v _s_pipe `S285 ~T0 @X0 1 e ]
-"17
-[; ;tasks.c: 17: pipe_t p;
-[v _p `S286 ~T0 @X0 1 e ]
-"19
-[; ;tasks.c: 19: void user_conf() {
+"12 tasks.c
+[; ;tasks.c: 12: unsigned char* sem;
+[v _sem `*uc ~T0 @X0 1 e ]
+"14
+[; ;tasks.c: 14: void user_conf() {
 [v _user_conf `(v ~T0 @X0 1 ef ]
 {
 [e :U _user_conf ]
 [f ]
+"15
+[; ;tasks.c: 15:   TRISB = 0b1000000;
+[e = _TRISB -> -> 64 `i `uc ]
+"17
+[; ;tasks.c: 17:   sem = SRAMalloc(4);
+[e = _sem ( _SRAMalloc (1 -> -> 4 `i `uc ]
+"19
+[; ;tasks.c: 19:   sem[0] =0;
+[e = *U + _sem * -> -> 0 `i `x -> -> # *U _sem `i `x -> -> 0 `i `uc ]
 "20
-[; ;tasks.c: 20:   TRISB = 0b00000001;
-[e = _TRISB -> -> 1 `i `uc ]
+[; ;tasks.c: 20:   sem[1] =0;
+[e = *U + _sem * -> -> 1 `i `x -> -> # *U _sem `i `x -> -> 0 `i `uc ]
 "21
-[; ;tasks.c: 21:   sem_init(&teste_1, 1);
-[e ( _sem_init (2 , &U _teste_1 -> 1 `i ]
+[; ;tasks.c: 21:   sem[2] =0;
+[e = *U + _sem * -> -> 2 `i `x -> -> # *U _sem `i `x -> -> 0 `i `uc ]
 "22
-[; ;tasks.c: 22:   sem_init(&teste_2, 0);
-[e ( _sem_init (2 , &U _teste_2 -> 0 `i ]
+[; ;tasks.c: 22:   sem[3] =0;
+[e = *U + _sem * -> -> 3 `i `x -> -> # *U _sem `i `x -> -> 0 `i `uc ]
 "23
-[; ;tasks.c: 23:   pipe_create(&p, &s_pipe);
-[e ( _pipe_create (2 , &U _p &U _s_pipe ]
-"24
-[; ;tasks.c: 24:   mem = SRAMalloc(5);
-[e = _mem ( _SRAMalloc (1 -> -> 5 `i `uc ]
-"25
-[; ;tasks.c: 25:   seven_seg_init();
+[; ;tasks.c: 23:   seven_seg_init();
 [e ( _seven_seg_init ..  ]
+"24
+[; ;tasks.c: 24: }
+[e :UE 285 ]
+}
 "26
-[; ;tasks.c: 26:   seven_seg_set(1, 5);
-[e ( _seven_seg_set (2 , -> 1 `i -> 5 `i ]
+[; ;tasks.c: 26: void task_entrance_01() {
+[v _task_entrance_01 `(v ~T0 @X0 1 ef ]
+{
+[e :U _task_entrance_01 ]
+[f ]
 "27
-[; ;tasks.c: 27: }
-[e :UE 287 ]
-}
+[; ;tasks.c: 27:   for (;;) {
+{
+[e :U 287 ]
+{
+"28
+[; ;tasks.c: 28:       if(PORTCbits.RC6) {
+[e $ ! != -> . . _PORTCbits 0 6 `i -> 0 `i 290  ]
+{
 "29
-[; ;tasks.c: 29: void task_0() {
-[v _task_0 `(v ~T0 @X0 1 ef ]
+[; ;tasks.c: 29:           if(!sem[0]) {
+[e $ ! ! != -> *U + _sem * -> -> 0 `i `x -> -> # *U _sem `i `x `i -> 0 `i 291  ]
 {
-[e :U _task_0 ]
-[f ]
 "30
-[; ;tasks.c: 30:   for (;;) {
-{
-[e :U 289 ]
-{
+[; ;tasks.c: 30:               seven_seg_set(1, 1);
+[e ( _seven_seg_set (2 , -> 1 `i -> 1 `i ]
 "31
-[; ;tasks.c: 31:     pipe_write(&p, 1);
-[e ( _pipe_write (2 , &U _p -> -> 1 `i `ui ]
+[; ;tasks.c: 31:               sem[0] = 1;
+[e = *U + _sem * -> -> 0 `i `x -> -> # *U _sem `i `x -> -> 1 `i `uc ]
 "33
-[; ;tasks.c: 33:     PORTBbits.RB3 = ~PORTBbits.RB3;
-[e = . . _PORTBbits 0 3 -> ~ -> . . _PORTBbits 0 3 `i `uc ]
+[; ;tasks.c: 33:               PORTBbits.RB1 = 1;
+[e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
+"34
+[; ;tasks.c: 34:               lunos_delayTask(2000);
+[e ( _lunos_delayTask (1 -> -> 2000 `i `ui ]
 "35
-[; ;tasks.c: 35:     lunos_delayTask(1000);
-[e ( _lunos_delayTask (1 -> -> 1000 `i `ui ]
-"36
-[; ;tasks.c: 36:   }
-}
-[e $U 289  ]
-[e :U 290 ]
-}
+[; ;tasks.c: 35:               PORTBbits.RB1 = 0;
+[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
+"37
+[; ;tasks.c: 37:               PORTBbits.RB2 = 1;
+[e = . . _PORTBbits 0 2 -> -> 1 `i `uc ]
 "38
-[; ;tasks.c: 38: }
-[e :UE 288 ]
+[; ;tasks.c: 38:           } else if(!sem[1]) {
 }
+[e $U 292  ]
+[e :U 291 ]
+[e $ ! ! != -> *U + _sem * -> -> 1 `i `x -> -> # *U _sem `i `x `i -> 0 `i 293  ]
+{
+"39
+[; ;tasks.c: 39:               seven_seg_set(1, 2);
+[e ( _seven_seg_set (2 , -> 1 `i -> 2 `i ]
 "40
-[; ;tasks.c: 40: void task_1() {
-[v _task_1 `(v ~T0 @X0 1 ef ]
-{
-[e :U _task_1 ]
-[f ]
-"41
-[; ;tasks.c: 41:   unsigned int dado;
-[v _dado `ui ~T0 @X0 1 a ]
+[; ;tasks.c: 40:               sem[1] = 1;
+[e = *U + _sem * -> -> 1 `i `x -> -> # *U _sem `i `x -> -> 1 `i `uc ]
 "42
-[; ;tasks.c: 42:   for (;;) {
-{
-[e :U 293 ]
-{
+[; ;tasks.c: 42:               PORTBbits.RB1 = 1;
+[e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
 "43
-[; ;tasks.c: 43:     pipe_read(&p, &dado);
-[e ( _pipe_read (2 , &U _p &U _dado ]
+[; ;tasks.c: 43:               lunos_delayTask(2000);
+[e ( _lunos_delayTask (1 -> -> 2000 `i `ui ]
 "44
-[; ;tasks.c: 44:     if (dado == 1)
-[e $ ! == _dado -> -> 1 `i `ui 296  ]
-"45
-[; ;tasks.c: 45:       PORTBbits.RB4 = ~PORTBbits.RB4;
-[e = . . _PORTBbits 0 4 -> ~ -> . . _PORTBbits 0 4 `i `uc ]
-[e :U 296 ]
+[; ;tasks.c: 44:               PORTBbits.RB1 = 0;
+[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
 "46
-[; ;tasks.c: 46:     lunos_delayTask(3000);
-[e ( _lunos_delayTask (1 -> -> 3000 `i `ui ]
+[; ;tasks.c: 46:               PORTBbits.RB3 = 1;
+[e = . . _PORTBbits 0 3 -> -> 1 `i `uc ]
 "47
-[; ;tasks.c: 47:   }
+[; ;tasks.c: 47:           } else if(!sem[2]) {
 }
-[e $U 293  ]
-[e :U 294 ]
-}
+[e $U 294  ]
+[e :U 293 ]
+[e $ ! ! != -> *U + _sem * -> -> 2 `i `x -> -> # *U _sem `i `x `i -> 0 `i 295  ]
+{
 "48
-[; ;tasks.c: 48: }
-[e :UE 292 ]
-}
-"50
-[; ;tasks.c: 50: void task_2() {
-[v _task_2 `(v ~T0 @X0 1 ef ]
-{
-[e :U _task_2 ]
-[f ]
+[; ;tasks.c: 48:               seven_seg_set(1, 3);
+[e ( _seven_seg_set (2 , -> 1 `i -> 3 `i ]
+"49
+[; ;tasks.c: 49:               sem[2] = 1;
+[e = *U + _sem * -> -> 2 `i `x -> -> # *U _sem `i `x -> -> 1 `i `uc ]
 "51
-[; ;tasks.c: 51:   for (;;) {
-{
-[e :U 298 ]
-{
+[; ;tasks.c: 51:               PORTBbits.RB1 = 1;
+[e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
 "52
-[; ;tasks.c: 52:     PORTBbits.RB5 = ~PORTBbits.RB5;
-[e = . . _PORTBbits 0 5 -> ~ -> . . _PORTBbits 0 5 `i `uc ]
+[; ;tasks.c: 52:               lunos_delayTask(2000);
+[e ( _lunos_delayTask (1 -> -> 2000 `i `ui ]
 "53
-[; ;tasks.c: 53:     lunos_delayTask(1000);
-[e ( _lunos_delayTask (1 -> -> 1000 `i `ui ]
-"54
-[; ;tasks.c: 54:   }
+[; ;tasks.c: 53:               PORTBbits.RB1 = 0;
+[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
+"55
+[; ;tasks.c: 55:               PORTBbits.RB4 = 1;
+[e = . . _PORTBbits 0 4 -> -> 1 `i `uc ]
+"56
+[; ;tasks.c: 56:           } else if(!sem[3]) {
+}
+[e $U 296  ]
+[e :U 295 ]
+[e $ ! ! != -> *U + _sem * -> -> 3 `i `x -> -> # *U _sem `i `x `i -> 0 `i 297  ]
+{
+"57
+[; ;tasks.c: 57:               seven_seg_set(1, 4);
+[e ( _seven_seg_set (2 , -> 1 `i -> 4 `i ]
+"58
+[; ;tasks.c: 58:               sem[3] = 1;
+[e = *U + _sem * -> -> 3 `i `x -> -> # *U _sem `i `x -> -> 1 `i `uc ]
+"60
+[; ;tasks.c: 60:               PORTBbits.RB1 = 1;
+[e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
+"61
+[; ;tasks.c: 61:               lunos_delayTask(2000);
+[e ( _lunos_delayTask (1 -> -> 2000 `i `ui ]
+"62
+[; ;tasks.c: 62:               PORTBbits.RB1 = 0;
+[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
+"64
+[; ;tasks.c: 64:               PORTBbits.RB5 = 1;
+[e = . . _PORTBbits 0 5 -> -> 1 `i `uc ]
+"65
+[; ;tasks.c: 65:           } else {
 }
 [e $U 298  ]
-[e :U 299 ]
-}
-"56
-[; ;tasks.c: 56: }
-[e :UE 297 ]
-}
-"58
-[; ;tasks.c: 58: void task_bozo() {
-[v _task_bozo `(v ~T0 @X0 1 ef ]
+[e :U 297 ]
 {
-[e :U _task_bozo ]
-[f ]
-"59
-[; ;tasks.c: 59:   while (1) {
-[e :U 303 ]
-{
-"60
-[; ;tasks.c: 60:     int i;
-[v _i `i ~T0 @X0 1 a ]
-"61
-[; ;tasks.c: 61:     sem_wait(&teste_1);
-[e ( _sem_wait (1 &U _teste_1 ]
-"62
-[; ;tasks.c: 62:     for (i = 0; i < 5; i++) {
-{
-[e = _i -> 0 `i ]
-[e $ < _i -> 5 `i 305  ]
-[e $U 306  ]
-[e :U 305 ]
-{
-"63
-[; ;tasks.c: 63:       mem[i] = i+1;
-[e = *U + _mem * -> _i `x -> -> # *U _mem `i `x -> + _i -> 1 `i `uc ]
-"64
-[; ;tasks.c: 64:     }
-}
-[e ++ _i -> 1 `i ]
-[e $ < _i -> 5 `i 305  ]
-[e :U 306 ]
-}
-"65
-[; ;tasks.c: 65:     sem_post(&teste_2);
-[e ( _sem_post (1 &U _teste_2 ]
 "66
-[; ;tasks.c: 66:   }
-}
-[e :U 302 ]
-[e $U 303  ]
-[e :U 304 ]
+[; ;tasks.c: 66:               seven_seg_set(1, 0);
+[e ( _seven_seg_set (2 , -> 1 `i -> 0 `i ]
 "67
-[; ;tasks.c: 67: }
-[e :UE 301 ]
+[; ;tasks.c: 67:           }
 }
+[e :U 298 ]
+[e :U 296 ]
+[e :U 294 ]
+[e :U 292 ]
+"68
+[; ;tasks.c: 68:           lunos_delayTask(800);
+[e ( _lunos_delayTask (1 -> -> 800 `i `ui ]
 "69
-[; ;tasks.c: 69: void task_xuxa() {
-[v _task_xuxa `(v ~T0 @X0 1 ef ]
-{
-[e :U _task_xuxa ]
-[f ]
+[; ;tasks.c: 69:       }
+}
+[e :U 290 ]
 "70
-[; ;tasks.c: 70:   int i;
-[v _i `i ~T0 @X0 1 a ]
+[; ;tasks.c: 70:   }
+}
+[e $U 287  ]
+[e :U 288 ]
+}
 "71
-[; ;tasks.c: 71:   while (1) {
+[; ;tasks.c: 71: }
+[e :UE 286 ]
+}
+"73
+[; ;tasks.c: 73: void task_entrance_02() {
+[v _task_entrance_02 `(v ~T0 @X0 1 ef ]
+{
+[e :U _task_entrance_02 ]
+[f ]
+"74
+[; ;tasks.c: 74:   for (;;) {
+{
+[e :U 300 ]
+{
+"75
+[; ;tasks.c: 75:       if(PORTCbits.RC7) {
+[e $ ! != -> . . _PORTCbits 0 7 `i -> 0 `i 303  ]
+{
+"76
+[; ;tasks.c: 76:           if(!sem[0]) {
+[e $ ! ! != -> *U + _sem * -> -> 0 `i `x -> -> # *U _sem `i `x `i -> 0 `i 304  ]
+{
+"77
+[; ;tasks.c: 77:               seven_seg_set(2, 1);
+[e ( _seven_seg_set (2 , -> 2 `i -> 1 `i ]
+"78
+[; ;tasks.c: 78:               sem[0] = 1;
+[e = *U + _sem * -> -> 0 `i `x -> -> # *U _sem `i `x -> -> 1 `i `uc ]
+"80
+[; ;tasks.c: 80:               PORTBbits.RB7 = 1;
+[e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
+"81
+[; ;tasks.c: 81:               lunos_delayTask(2000);
+[e ( _lunos_delayTask (1 -> -> 2000 `i `ui ]
+"82
+[; ;tasks.c: 82:               PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"84
+[; ;tasks.c: 84:               PORTBbits.RB2 = 1;
+[e = . . _PORTBbits 0 2 -> -> 1 `i `uc ]
+"85
+[; ;tasks.c: 85:           } else if(!sem[1]) {
+}
+[e $U 305  ]
+[e :U 304 ]
+[e $ ! ! != -> *U + _sem * -> -> 1 `i `x -> -> # *U _sem `i `x `i -> 0 `i 306  ]
+{
+"86
+[; ;tasks.c: 86:               seven_seg_set(2, 2);
+[e ( _seven_seg_set (2 , -> 2 `i -> 2 `i ]
+"87
+[; ;tasks.c: 87:               sem[1] =1;
+[e = *U + _sem * -> -> 1 `i `x -> -> # *U _sem `i `x -> -> 1 `i `uc ]
+"89
+[; ;tasks.c: 89:               PORTBbits.RB7 = 1;
+[e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
+"90
+[; ;tasks.c: 90:               lunos_delayTask(2000);
+[e ( _lunos_delayTask (1 -> -> 2000 `i `ui ]
+"91
+[; ;tasks.c: 91:               PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"93
+[; ;tasks.c: 93:               PORTBbits.RB3 = 1;
+[e = . . _PORTBbits 0 3 -> -> 1 `i `uc ]
+"94
+[; ;tasks.c: 94:           } else if(!sem[2]) {
+}
+[e $U 307  ]
+[e :U 306 ]
+[e $ ! ! != -> *U + _sem * -> -> 2 `i `x -> -> # *U _sem `i `x `i -> 0 `i 308  ]
+{
+"95
+[; ;tasks.c: 95:               seven_seg_set(2, 3);
+[e ( _seven_seg_set (2 , -> 2 `i -> 3 `i ]
+"96
+[; ;tasks.c: 96:               sem[2] =1;
+[e = *U + _sem * -> -> 2 `i `x -> -> # *U _sem `i `x -> -> 1 `i `uc ]
+"98
+[; ;tasks.c: 98:               PORTBbits.RB7 = 1;
+[e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
+"99
+[; ;tasks.c: 99:               lunos_delayTask(2000);
+[e ( _lunos_delayTask (1 -> -> 2000 `i `ui ]
+"100
+[; ;tasks.c: 100:               PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"102
+[; ;tasks.c: 102:               PORTBbits.RB4 = 1;
+[e = . . _PORTBbits 0 4 -> -> 1 `i `uc ]
+"103
+[; ;tasks.c: 103:           } else if(!sem[3]) {
+}
+[e $U 309  ]
+[e :U 308 ]
+[e $ ! ! != -> *U + _sem * -> -> 3 `i `x -> -> # *U _sem `i `x `i -> 0 `i 310  ]
+{
+"104
+[; ;tasks.c: 104:               seven_seg_set(2, 4);
+[e ( _seven_seg_set (2 , -> 2 `i -> 4 `i ]
+"105
+[; ;tasks.c: 105:               sem[3] =1;
+[e = *U + _sem * -> -> 3 `i `x -> -> # *U _sem `i `x -> -> 1 `i `uc ]
+"107
+[; ;tasks.c: 107:               PORTBbits.RB7 = 1;
+[e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
+"108
+[; ;tasks.c: 108:               lunos_delayTask(2000);
+[e ( _lunos_delayTask (1 -> -> 2000 `i `ui ]
+"109
+[; ;tasks.c: 109:               PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"111
+[; ;tasks.c: 111:               PORTBbits.RB5 = 1;
+[e = . . _PORTBbits 0 5 -> -> 1 `i `uc ]
+"112
+[; ;tasks.c: 112:           } else {
+}
+[e $U 311  ]
 [e :U 310 ]
 {
-"72
-[; ;tasks.c: 72:     sem_wait(&teste_2);
-[e ( _sem_wait (1 &U _teste_2 ]
-"73
-[; ;tasks.c: 73:     for (i = 0; i < 5; i++) {
-{
-[e = _i -> 0 `i ]
-[e $ < _i -> 5 `i 312  ]
-[e $U 313  ]
-[e :U 312 ]
-{
-"74
-[; ;tasks.c: 74:       if (mem[i] % 2 == 0)
-[e $ ! == % -> *U + _mem * -> _i `x -> -> # *U _mem `i `x `i -> 2 `i -> 0 `i 315  ]
-"75
-[; ;tasks.c: 75:         PORTBbits.RB3 = ~PORTBbits.RB3;
-[e = . . _PORTBbits 0 3 -> ~ -> . . _PORTBbits 0 3 `i `uc ]
-[e $U 316  ]
-"76
-[; ;tasks.c: 76:       else
-[e :U 315 ]
-"77
-[; ;tasks.c: 77:         PORTBbits.RB5 = ~PORTBbits.RB5;
-[e = . . _PORTBbits 0 5 -> ~ -> . . _PORTBbits 0 5 `i `uc ]
-[e :U 316 ]
-"78
-[; ;tasks.c: 78:       lunos_delayTask(1000);
-[e ( _lunos_delayTask (1 -> -> 1000 `i `ui ]
-"79
-[; ;tasks.c: 79:     }
+"113
+[; ;tasks.c: 113:               seven_seg_set(2, 0);
+[e ( _seven_seg_set (2 , -> 2 `i -> 0 `i ]
+"114
+[; ;tasks.c: 114:           }
 }
-[e ++ _i -> 1 `i ]
-[e $ < _i -> 5 `i 312  ]
-[e :U 313 ]
-}
-"80
-[; ;tasks.c: 80:     sem_post(&teste_1);
-[e ( _sem_post (1 &U _teste_1 ]
-"81
-[; ;tasks.c: 81:   }
-}
-[e :U 309 ]
-[e $U 310  ]
 [e :U 311 ]
-"82
-[; ;tasks.c: 82: }
-[e :UE 308 ]
+[e :U 309 ]
+[e :U 307 ]
+[e :U 305 ]
+"115
+[; ;tasks.c: 115:           lunos_delayTask(800);
+[e ( _lunos_delayTask (1 -> -> 800 `i `ui ]
+"116
+[; ;tasks.c: 116:       }
+}
+[e :U 303 ]
+"117
+[; ;tasks.c: 117:   }
+}
+[e $U 300  ]
+[e :U 301 ]
+}
+"118
+[; ;tasks.c: 118: }
+[e :UE 299 ]
+}
+"120
+[; ;tasks.c: 120: void task_spot_01() {
+[v _task_spot_01 `(v ~T0 @X0 1 ef ]
+{
+[e :U _task_spot_01 ]
+[f ]
+"121
+[; ;tasks.c: 121:   while (1) {
+[e :U 314 ]
+{
+"122
+[; ;tasks.c: 122:     if(PORTBbits.RB2) {
+[e $ ! != -> . . _PORTBbits 0 2 `i -> 0 `i 316  ]
+{
+"123
+[; ;tasks.c: 123:         lunos_delayTask(4000);
+[e ( _lunos_delayTask (1 -> -> 4000 `i `ui ]
+"124
+[; ;tasks.c: 124:         PORTBbits.RB2 = 0;
+[e = . . _PORTBbits 0 2 -> -> 0 `i `uc ]
+"125
+[; ;tasks.c: 125:         sem[0] = 0;
+[e = *U + _sem * -> -> 0 `i `x -> -> # *U _sem `i `x -> -> 0 `i `uc ]
+"126
+[; ;tasks.c: 126:         lunos_delayTask(500);
+[e ( _lunos_delayTask (1 -> -> 500 `i `ui ]
+"127
+[; ;tasks.c: 127:     }
+}
+[e :U 316 ]
+"128
+[; ;tasks.c: 128:     lunos_delayTask(100);
+[e ( _lunos_delayTask (1 -> -> 100 `i `ui ]
+"129
+[; ;tasks.c: 129:   }
+}
+[e :U 313 ]
+[e $U 314  ]
+[e :U 315 ]
+"130
+[; ;tasks.c: 130: }
+[e :UE 312 ]
+}
+"132
+[; ;tasks.c: 132: void task_spot_02() {
+[v _task_spot_02 `(v ~T0 @X0 1 ef ]
+{
+[e :U _task_spot_02 ]
+[f ]
+"133
+[; ;tasks.c: 133:   while (1) {
+[e :U 319 ]
+{
+"134
+[; ;tasks.c: 134:     if(PORTBbits.RB3) {
+[e $ ! != -> . . _PORTBbits 0 3 `i -> 0 `i 321  ]
+{
+"135
+[; ;tasks.c: 135:         lunos_delayTask(4000);
+[e ( _lunos_delayTask (1 -> -> 4000 `i `ui ]
+"136
+[; ;tasks.c: 136:         PORTBbits.RB3 = 0;
+[e = . . _PORTBbits 0 3 -> -> 0 `i `uc ]
+"137
+[; ;tasks.c: 137:         sem[1] = 0;
+[e = *U + _sem * -> -> 1 `i `x -> -> # *U _sem `i `x -> -> 0 `i `uc ]
+"138
+[; ;tasks.c: 138:         lunos_delayTask(500);
+[e ( _lunos_delayTask (1 -> -> 500 `i `ui ]
+"139
+[; ;tasks.c: 139:     }
+}
+[e :U 321 ]
+"140
+[; ;tasks.c: 140:     lunos_delayTask(100);
+[e ( _lunos_delayTask (1 -> -> 100 `i `ui ]
+"141
+[; ;tasks.c: 141:   }
+}
+[e :U 318 ]
+[e $U 319  ]
+[e :U 320 ]
+"142
+[; ;tasks.c: 142: }
+[e :UE 317 ]
+}
+"144
+[; ;tasks.c: 144: void task_spot_03() {
+[v _task_spot_03 `(v ~T0 @X0 1 ef ]
+{
+[e :U _task_spot_03 ]
+[f ]
+"145
+[; ;tasks.c: 145:   while (1) {
+[e :U 324 ]
+{
+"146
+[; ;tasks.c: 146:      if(PORTBbits.RB4) {
+[e $ ! != -> . . _PORTBbits 0 4 `i -> 0 `i 326  ]
+{
+"147
+[; ;tasks.c: 147:         lunos_delayTask(4000);
+[e ( _lunos_delayTask (1 -> -> 4000 `i `ui ]
+"148
+[; ;tasks.c: 148:         PORTBbits.RB4 = 0;
+[e = . . _PORTBbits 0 4 -> -> 0 `i `uc ]
+"149
+[; ;tasks.c: 149:         sem[2] = 0;
+[e = *U + _sem * -> -> 2 `i `x -> -> # *U _sem `i `x -> -> 0 `i `uc ]
+"150
+[; ;tasks.c: 150:         lunos_delayTask(500);
+[e ( _lunos_delayTask (1 -> -> 500 `i `ui ]
+"151
+[; ;tasks.c: 151:     }
+}
+[e :U 326 ]
+"152
+[; ;tasks.c: 152:      lunos_delayTask(100);
+[e ( _lunos_delayTask (1 -> -> 100 `i `ui ]
+"153
+[; ;tasks.c: 153:   }
+}
+[e :U 323 ]
+[e $U 324  ]
+[e :U 325 ]
+"154
+[; ;tasks.c: 154: }
+[e :UE 322 ]
+}
+"157
+[; ;tasks.c: 157: void task_spot_04() {
+[v _task_spot_04 `(v ~T0 @X0 1 ef ]
+{
+[e :U _task_spot_04 ]
+[f ]
+"158
+[; ;tasks.c: 158:   while (1) {
+[e :U 329 ]
+{
+"159
+[; ;tasks.c: 159:     if(PORTBbits.RB5) {
+[e $ ! != -> . . _PORTBbits 0 5 `i -> 0 `i 331  ]
+{
+"160
+[; ;tasks.c: 160:         lunos_delayTask(4000);
+[e ( _lunos_delayTask (1 -> -> 4000 `i `ui ]
+"161
+[; ;tasks.c: 161:         PORTBbits.RB5 = 0;
+[e = . . _PORTBbits 0 5 -> -> 0 `i `uc ]
+"162
+[; ;tasks.c: 162:         sem[3] = 0;
+[e = *U + _sem * -> -> 3 `i `x -> -> # *U _sem `i `x -> -> 0 `i `uc ]
+"163
+[; ;tasks.c: 163:         lunos_delayTask(500);
+[e ( _lunos_delayTask (1 -> -> 500 `i `ui ]
+"164
+[; ;tasks.c: 164:     }
+}
+[e :U 331 ]
+"165
+[; ;tasks.c: 165:     lunos_delayTask(100);
+[e ( _lunos_delayTask (1 -> -> 100 `i `ui ]
+"166
+[; ;tasks.c: 166:   }
+}
+[e :U 328 ]
+[e $U 329  ]
+[e :U 330 ]
+"167
+[; ;tasks.c: 167: }
+[e :UE 327 ]
 }

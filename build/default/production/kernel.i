@@ -55,7 +55,7 @@ typedef struct pcb {
 } t_pcb;
 
 typedef struct r_queue {
-  t_pcb tasks[4 +1];
+  t_pcb tasks[7 +1];
   unsigned int tasks_installed;
   int task_running;
 } t_r_queue;

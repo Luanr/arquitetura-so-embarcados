@@ -39,7 +39,7 @@ int size = 0;
     STKPTR = 0;\
     who = ready_queue.task_running;\
     if (ready_queue.tasks[who].task_stack.stack_level == 0) {\
-        __asm("PUSH");\
+        __asm("PUSH");\  
         TOS = ready_queue.tasks[who].task_f;\
     }\
     else {\

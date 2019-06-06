@@ -34,6 +34,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
+      <itemPath>nbproject/Makefile-default.mk</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

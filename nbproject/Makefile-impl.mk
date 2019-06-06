@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=arquitetura-so-embarcados
+PROJECTNAME=TASK_BOZO_XUXA_ULTIMO
 
 # Active Configuration
 DEFAULTCONF=default

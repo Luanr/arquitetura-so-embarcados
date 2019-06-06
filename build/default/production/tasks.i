@@ -4371,11 +4371,12 @@ extern volatile __bit nWRITE __attribute__((address(0x7E3A)));
 
 
 void user_conf();
-void task_0();
-void task_1();
-void task_2();
-void task_bozo();
-void task_xuxa();
+void task_entrance_01();
+void task_entrance_02();
+void task_spot_04();
+void task_spot_01();
+void task_spot_02();
+void task_spot_03();
 # 6 "tasks.c" 2
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\xc.h" 1 3
@@ -4537,7 +4538,9 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 32 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\xc.h" 2 3
 # 7 "tasks.c" 2
 
-# 1 "./semaphore.h" 1
+# 1 "./kernel.h" 1
+# 10 "./kernel.h"
+# 1 "./types.h" 1
 
 
 
@@ -4546,10 +4549,11 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 
 
 # 1 "./config.h" 1
-# 8 "./semaphore.h" 2
+# 8 "./types.h" 2
 
-# 1 "./types.h" 1
-# 12 "./types.h"
+
+
+
 typedef unsigned int tid;
 typedef unsigned char byte;
 typedef enum {READY = 0, RUNNING, WAITING, FINISHED, WAITING_PIPE, WAITING_SEM} t_state;
@@ -4580,29 +4584,14 @@ typedef struct pcb {
 } t_pcb;
 
 typedef struct r_queue {
-  t_pcb tasks[4 +1];
+  t_pcb tasks[7 +1];
   unsigned int tasks_installed;
   int task_running;
 } t_r_queue;
-# 9 "./semaphore.h" 2
+# 10 "./kernel.h" 2
 
 
 
-typedef struct semaphore {
-  int contador;
-  unsigned int bloqued_Queue[4];
-  unsigned int bloqued_size;
-  unsigned int task_to_ready;
-} sem_t;
-
-void sem_init(sem_t *s, int valor);
-void sem_wait(sem_t *s);
-void sem_post(sem_t *s);
-int sem_get_value(sem_t s);
-# 8 "tasks.c" 2
-
-# 1 "./kernel.h" 1
-# 13 "./kernel.h"
 extern t_r_queue ready_queue;
 int who = 0;
 int size = 0;
@@ -4620,29 +4609,13 @@ unsigned int round_robin();
 unsigned int priority();
 void delay_decrement();
 void task_idle();
-# 9 "tasks.c" 2
-
-# 1 "./pipe.h" 1
-# 12 "./pipe.h"
-typedef struct pipe {
-  unsigned int pipe_data[2];
-  unsigned int index_write;
-  unsigned int index_read;
-  unsigned int p_size;
-  sem_t *s;
-} pipe_t;
-
-void pipe_create(pipe_t *p, sem_t *s);
-void pipe_write(pipe_t *p, unsigned int data);
-void pipe_read(pipe_t *p, unsigned int *data);
-unsigned int pipe_size(pipe_t p);
-# 10 "tasks.c" 2
+# 8 "tasks.c" 2
 
 # 1 "./sralloc.h" 1
 unsigned char * SRAMalloc(unsigned char nBytes);
 void SRAMfree(unsigned char * pSRAM);
 void SRAMInitHeap(void);
-# 11 "tasks.c" 2
+# 9 "tasks.c" 2
 
 # 1 "./seven_seg.h" 1
 
@@ -4653,75 +4626,162 @@ void SRAMInitHeap(void);
 
 void seven_seg_init(void);
 void seven_seg_set(int display, int number) ;
-# 12 "tasks.c" 2
+# 10 "tasks.c" 2
 
 
-unsigned char* mem;
-
-sem_t teste_1, teste_2, s_pipe;
-pipe_t p;
+unsigned char* sem;
 
 void user_conf() {
-  TRISB = 0b00000001;
-  sem_init(&teste_1, 1);
-  sem_init(&teste_2, 0);
-  pipe_create(&p, &s_pipe);
-  mem = SRAMalloc(5);
+  TRISB = 0b1000000;
+
+  sem = SRAMalloc(4);
+
+  sem[0] =0;
+  sem[1] =0;
+  sem[2] =0;
+  sem[3] =0;
   seven_seg_init();
-  seven_seg_set(1, 5);
 }
 
-void task_0() {
+void task_entrance_01() {
   for (;;) {
-    pipe_write(&p, 1);
+      if(PORTCbits.RC6) {
+          if(!sem[0]) {
+              seven_seg_set(1, 1);
+              sem[0] = 1;
 
-    PORTBbits.RB3 = ~PORTBbits.RB3;
+              PORTBbits.RB1 = 1;
+              lunos_delayTask(2000);
+              PORTBbits.RB1 = 0;
 
-    lunos_delayTask(1000);
+              PORTBbits.RB2 = 1;
+          } else if(!sem[1]) {
+              seven_seg_set(1, 2);
+              sem[1] = 1;
+
+              PORTBbits.RB1 = 1;
+              lunos_delayTask(2000);
+              PORTBbits.RB1 = 0;
+
+              PORTBbits.RB3 = 1;
+          } else if(!sem[2]) {
+              seven_seg_set(1, 3);
+              sem[2] = 1;
+
+              PORTBbits.RB1 = 1;
+              lunos_delayTask(2000);
+              PORTBbits.RB1 = 0;
+
+              PORTBbits.RB4 = 1;
+          } else if(!sem[3]) {
+              seven_seg_set(1, 4);
+              sem[3] = 1;
+
+              PORTBbits.RB1 = 1;
+              lunos_delayTask(2000);
+              PORTBbits.RB1 = 0;
+
+              PORTBbits.RB5 = 1;
+          } else {
+              seven_seg_set(1, 0);
+          }
+          lunos_delayTask(800);
+      }
   }
-
 }
 
-void task_1() {
-  unsigned int dado;
+void task_entrance_02() {
   for (;;) {
-    pipe_read(&p, &dado);
-    if (dado == 1)
-      PORTBbits.RB4 = ~PORTBbits.RB4;
-    lunos_delayTask(3000);
+      if(PORTCbits.RC7) {
+          if(!sem[0]) {
+              seven_seg_set(2, 1);
+              sem[0] = 1;
+
+              PORTBbits.RB7 = 1;
+              lunos_delayTask(2000);
+              PORTBbits.RB7 = 0;
+
+              PORTBbits.RB2 = 1;
+          } else if(!sem[1]) {
+              seven_seg_set(2, 2);
+              sem[1] =1;
+
+              PORTBbits.RB7 = 1;
+              lunos_delayTask(2000);
+              PORTBbits.RB7 = 0;
+
+              PORTBbits.RB3 = 1;
+          } else if(!sem[2]) {
+              seven_seg_set(2, 3);
+              sem[2] =1;
+
+              PORTBbits.RB7 = 1;
+              lunos_delayTask(2000);
+              PORTBbits.RB7 = 0;
+
+              PORTBbits.RB4 = 1;
+          } else if(!sem[3]) {
+              seven_seg_set(2, 4);
+              sem[3] =1;
+
+              PORTBbits.RB7 = 1;
+              lunos_delayTask(2000);
+              PORTBbits.RB7 = 0;
+
+              PORTBbits.RB5 = 1;
+          } else {
+              seven_seg_set(2, 0);
+          }
+          lunos_delayTask(800);
+      }
   }
 }
 
-void task_2() {
-  for (;;) {
-    PORTBbits.RB5 = ~PORTBbits.RB5;
-    lunos_delayTask(1000);
-  }
-
-}
-
-void task_bozo() {
+void task_spot_01() {
   while (1) {
-    int i;
-    sem_wait(&teste_1);
-    for (i = 0; i < 5; i++) {
-      mem[i] = i+1;
+    if(PORTBbits.RB2) {
+        lunos_delayTask(4000);
+        PORTBbits.RB2 = 0;
+        sem[0] = 0;
+        lunos_delayTask(500);
     }
-    sem_post(&teste_2);
+    lunos_delayTask(100);
   }
 }
 
-void task_xuxa() {
-  int i;
+void task_spot_02() {
   while (1) {
-    sem_wait(&teste_2);
-    for (i = 0; i < 5; i++) {
-      if (mem[i] % 2 == 0)
-        PORTBbits.RB3 = ~PORTBbits.RB3;
-      else
-        PORTBbits.RB5 = ~PORTBbits.RB5;
-      lunos_delayTask(1000);
+    if(PORTBbits.RB3) {
+        lunos_delayTask(4000);
+        PORTBbits.RB3 = 0;
+        sem[1] = 0;
+        lunos_delayTask(500);
     }
-    sem_post(&teste_1);
+    lunos_delayTask(100);
+  }
+}
+
+void task_spot_03() {
+  while (1) {
+     if(PORTBbits.RB4) {
+        lunos_delayTask(4000);
+        PORTBbits.RB4 = 0;
+        sem[2] = 0;
+        lunos_delayTask(500);
+    }
+     lunos_delayTask(100);
+  }
+}
+
+
+void task_spot_04() {
+  while (1) {
+    if(PORTBbits.RB5) {
+        lunos_delayTask(4000);
+        PORTBbits.RB5 = 0;
+        sem[3] = 0;
+        lunos_delayTask(500);
+    }
+    lunos_delayTask(100);
   }
 }

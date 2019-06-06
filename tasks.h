@@ -6,11 +6,12 @@
 #define	TASKS_H
 
 void user_conf();
-void task_0();
-void task_1();
-void task_2();
-void task_bozo();
-void task_xuxa();
+void task_entrance_01();
+void task_entrance_02();
+void task_spot_04();
+void task_spot_01();
+void task_spot_02();
+void task_spot_03();
 
 #endif	/* TASKS_H */
 

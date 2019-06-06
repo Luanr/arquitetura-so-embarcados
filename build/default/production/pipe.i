@@ -62,7 +62,7 @@ typedef struct pcb {
 } t_pcb;
 
 typedef struct r_queue {
-  t_pcb tasks[4 +1];
+  t_pcb tasks[7 +1];
   unsigned int tasks_installed;
   int task_running;
 } t_r_queue;
@@ -72,7 +72,7 @@ typedef struct r_queue {
 
 typedef struct semaphore {
   int contador;
-  unsigned int bloqued_Queue[4];
+  unsigned int bloqued_Queue[7];
   unsigned int bloqued_size;
   unsigned int task_to_ready;
 } sem_t;

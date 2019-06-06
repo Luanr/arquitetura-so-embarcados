@@ -4532,7 +4532,6 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 
 
 void config_INT0();
-void config_INT1();
 void config_timer0();
 void __attribute__((picinterrupt(("")))) ISR_Int0(void);
 void __attribute__((picinterrupt(("")))) ISR_timer0();
@@ -4584,7 +4583,7 @@ typedef struct pcb {
 } t_pcb;
 
 typedef struct r_queue {
-  t_pcb tasks[4 +1];
+  t_pcb tasks[7 +1];
   unsigned int tasks_installed;
   int task_running;
 } t_r_queue;
@@ -4625,12 +4624,6 @@ void config_INT0() {
   INTCON2bits.INTEDG0 = 0;
 }
 
-void config_INT1() {
-
-
-
-}
-
 void config_timer0() {
 
 
@@ -4643,7 +4636,7 @@ void config_timer0() {
   INTCONbits.TMR0IE = 1;
   TMR0L = 252;
 }
-# 64 "int0_test.c"
+# 56 "int0_test.c"
 void __attribute__((picinterrupt(("")))) ISR_timer0() {
   INTCONbits.GIE = 0;
 

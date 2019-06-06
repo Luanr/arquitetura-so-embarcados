@@ -18,7 +18,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [n S3 pcb task_id task_prior PC_reg W_reg STATUS_reg BSR_reg task_state task_stack task_f task_delay_time ]
 "41
 [; ;./types.h: 41: typedef struct r_queue {
-[s S4 `S3 -> 5 `i `ui 1 `i 1 ]
+[s S4 `S3 -> 8 `i `ui 1 `i 1 ]
 [n S4 r_queue tasks tasks_installed task_running ]
 [v F2590 `(v ~T0 @X0 0 t? ]
 [v F2593 `(v ~T0 @X0 0 t? ]

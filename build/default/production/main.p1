@@ -9,20 +9,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 "10 ./int0_test.h
 [; ;./int0_test.h: 10: void config_INT0();
 [v _config_INT0 `(v ~T0 @X0 0 e? ]
-"12
-[; ;./int0_test.h: 12: void config_timer0();
+"11
+[; ;./int0_test.h: 11: void config_timer0();
 [v _config_timer0 `(v ~T0 @X0 0 e? ]
 [v F2567 `(v ~T0 @X0 0 t? ]
 "64 ./kernel.h
 [; ;./kernel.h: 64: void lunos_createTask(unsigned int prior, void(*f)());
 [v _lunos_createTask `(v ~T0 @X0 0 ef2`ui`*F2567 ]
-"12 ./tasks.h
-[; ;./tasks.h: 12: void task_bozo();
-[v _task_bozo `(v ~T0 @X0 0 e? ]
+"9 ./tasks.h
+[; ;./tasks.h: 9: void task_entrance_01();
+[v _task_entrance_01 `(v ~T0 @X0 0 e? ]
+"10
+[; ;./tasks.h: 10: void task_entrance_02();
+[v _task_entrance_02 `(v ~T0 @X0 0 e? ]
+"12
+[; ;./tasks.h: 12: void task_spot_01();
+[v _task_spot_01 `(v ~T0 @X0 0 e? ]
 "13
-[; ;./tasks.h: 13: void task_xuxa();
-[v _task_xuxa `(v ~T0 @X0 0 e? ]
-"32 main.c
+[; ;./tasks.h: 13: void task_spot_02();
+[v _task_spot_02 `(v ~T0 @X0 0 e? ]
+"14
+[; ;./tasks.h: 14: void task_spot_03();
+[v _task_spot_03 `(v ~T0 @X0 0 e? ]
+"11
+[; ;./tasks.h: 11: void task_spot_04();
+[v _task_spot_04 `(v ~T0 @X0 0 e? ]
+"36 main.c
 [c E2528 0 1 2 3 4 5 .. ]
 [n E2528 . READY RUNNING WAITING FINISHED WAITING_PIPE WAITING_SEM  ]
 "72 ./kernel.h
@@ -455,46 +467,54 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> 0 `i
 ]
 "11 main.c
-[; ;main.c: 11: 
+[; ;main.c: 11:   config_timer0();
 [p x PBADEN = OFF ]
 "12
 [; ;main.c: 12: 
 [p x WDT    = OFF ]
-"14
-[; ;main.c: 14: 
-[; <" GLOBAL _task_idle, _task_0, _task_1, _task_2, _task_bozo, _task_xuxa ;# ">
+"15
+[; ;main.c: 15:   lunos_createTask(4, &task_entrance_02);
+[; <" GLOBAL _task_idle, _task_entrance_01, _task_entrance_02, _task_spot_01, _task_spot_02, _task_spot_03, _task_spot_04 ;# ">
 [v $root$_main `(v ~T0 @X0 0 e ]
-"16
-[; ;main.c: 16:   lunos_createTask(5, &task_xuxa);
+"19
+[; ;main.c: 19:   lunos_createTask(5, &task_spot_03);
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"18
-[; ;main.c: 18:   dispatcher(READY);
-[e ( _lunos_init ..  ]
-"20
-[; ;main.c: 20:   while (1);
-[e ( _user_conf ..  ]
 "21
 [; ;main.c: 21: 
+[e ( _lunos_init ..  ]
+"23
+[; ;main.c: 23: 
+[e ( _user_conf ..  ]
+"24
+[; ;main.c: 24:   while (1);
 [e ( _config_INT0 ..  ]
-"22
-[; ;main.c: 22:   return;
+"25
+[; ;main.c: 25: 
 [e ( _config_timer0 ..  ]
+"28
+[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_entrance_01 ]
 "29
-[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_bozo ]
-"30
-[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_xuxa ]
+[e ( _lunos_createTask (2 , -> -> 4 `i `ui &U _task_entrance_02 ]
+"31
+[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_spot_01 ]
 "32
-[e ( _dispatcher (1 . `E2528 0 ]
+[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_spot_02 ]
+"33
+[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_spot_03 ]
 "34
+[e ( _lunos_createTask (2 , -> -> 5 `i `ui &U _task_spot_04 ]
+"36
+[e ( _dispatcher (1 . `E2528 0 ]
+"38
 [e :U 288 ]
 [e :U 287 ]
 [e $U 288  ]
 [e :U 289 ]
-"36
+"40
 [e $UE 286  ]
-"37
+"41
 [e :UE 286 ]
 }
